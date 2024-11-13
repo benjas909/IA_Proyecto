@@ -23,5 +23,7 @@ int main() {
 
   cout << sol.getDistance() << endl;
 
+  problem.showGamesMat();
+
   return 0;
 }
