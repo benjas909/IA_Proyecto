@@ -2,8 +2,6 @@
 #include "../include/problemReader.hpp"
 
 
-using namespace std;
-
 TUP readProblemFile(string fileName) {
 
   ifstream pFile(fileName);
@@ -21,6 +19,7 @@ TUP readProblemFile(string fileName) {
     istringstream iss(line);
     vector<int> rowVec;
 
+    // Gracias StackOverflow 
     for (int i; iss >> i; rowVec.push_back(i));
 
     distMatrix.push_back(rowVec);
@@ -31,6 +30,7 @@ TUP readProblemFile(string fileName) {
     istringstream iss(line);
     vector<int> rowVec;
 
+    // Gracias StackOverflow
     for (int i; iss >> i; rowVec.push_back(i));
 
     oppMatrix.push_back(rowVec);

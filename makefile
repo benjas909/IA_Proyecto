@@ -11,7 +11,7 @@ EXECUTABLE	:= main
 all: $(BIN)/$(EXECUTABLE)
 
 run: clean all
-	clear
+	# clear
 	@echo "Ejecutando..."
 	./$(BIN)/$(EXECUTABLE)
 

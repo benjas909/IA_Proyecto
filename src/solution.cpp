@@ -1,7 +1,5 @@
 #include "../include/solution.hpp"
 
-using namespace std;
-
 Solution::Solution(TUP* prob, int d1, int d2, vector<vector<int>> vMat) {
   this->problem = prob;
   this->d1 = d1;

@@ -1,6 +1,6 @@
 #include "../include/problemReader.hpp"
 #include "../include/solution.hpp"
-using namespace std;
+#include "../include/initialSolution.hpp"
 
 
 int main() {
@@ -24,6 +24,13 @@ int main() {
   cout << sol.getDistance() << endl;
 
   problem.showGamesMat();
+
+  Solution ranSol = randomSol(&problem, 0, 0);
+
+  ranSol.showVisitsMatrix();
+  cout << ranSol.getDistance() << endl;
+
+
 
   return 0;
 }

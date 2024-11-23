@@ -11,9 +11,11 @@ class TUP {
   int nUmpires;
   int nTeams;
   int nRounds;
+  int nGamesPerRound;
   vector<vector<int>> distMatrix;
   vector<vector<int>> oppMatrix;
-  vector<vector<int>> gamesMatrix;
+  vector<vector<vector<int>>> gamesMatrix;
+
 public:
 
   TUP(int N, vector<vector<int>> D, vector<vector<int>> T);
@@ -21,18 +23,17 @@ public:
   int getnUmpires();
   int getnTeams();
   int getnRounds();
+  int getnGamesPerRound();
   vector<vector<int>> getDistMatrix();
   vector<vector<int>> getOppMatrix();
-  vector<vector<int>> getGamesMatrix();
+  vector<vector<vector<int>>> getGamesMatrix();
+
 
   void showDistMatrix();
   void showOppMatrix();
   void showGamesMat();
 
-  vector<vector<int>> generateGamesMat();
-
-
-
+  vector<vector<vector<int>>> generateGamesMat();
 
 };
 

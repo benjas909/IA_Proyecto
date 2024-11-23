@@ -4,8 +4,6 @@
 #include "./TUP.hpp"
 #include <iostream>
 
-using namespace std;
-
 
 class Solution {
   TUP* problem;
@@ -15,15 +13,10 @@ class Solution {
   vector<vector<int>> visitsMatrix;
 
 public:
-
   Solution(TUP* prob, int d1, int d2, vector<vector<int>> vMat);
-
   int calcDistance();
-
   int getDistance();
-
   void showVisitsMatrix();
-
 };
 
 #endif
