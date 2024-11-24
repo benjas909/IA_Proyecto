@@ -17,11 +17,11 @@ int main() {
     {1, 3, 1, 3, 4, 2}
   };
 
-  Solution sol(&problem, 0, 0, visit);
+  // Solution sol(&problem, 0, 0, visit);
 
   // sol.showVisitsMatrix();
 
-  cout << sol.getDistance() << endl;
+  // cout << sol.getDistance() << endl;
 
   problem.showGamesMat();
 
@@ -29,6 +29,10 @@ int main() {
 
   ranSol.showVisitsMatrix();
   cout << ranSol.getDistance() << endl;
+
+  cout << ranSol.getTotalCost() << endl;
+
+  // cout << ranSol.get
 
 
 

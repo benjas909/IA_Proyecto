@@ -54,6 +54,7 @@ vector<vector<vector<int>>> TUP::generateGamesMat() {
 }
 
 void TUP::showGamesMat() {
+  cout << "Games Matrix: " << endl;
   cout << "[ " << endl;
   for (const auto& v : this->gamesMatrix) {
     for (const auto& e : v) {
