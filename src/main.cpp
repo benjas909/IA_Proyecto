@@ -1,38 +1,39 @@
-#include "../include/problemReader.hpp"
-#include "../include/solution.hpp"
-#include "../include/initialSolution.hpp"
+#include "../include/simAnnealing.hpp"
 
 
 int main() {
 
   TUP problem = readProblemFile("./instances/umps4.txt");
-  // cout << problem.getnRounds() << endl;
-
-  // problem.showDistMatrix();
-  // cout << endl;
-  // problem.showOppMatrix();
 
   vector<vector<int>> visit = {
     {2, 1, 3, 4, 2, 4},
     {1, 3, 1, 3, 4, 2}
   };
 
-  // Solution sol(&problem, 0, 0, visit);
-
-  // sol.showVisitsMatrix();
-
-  // cout << sol.getDistance() << endl;
-
   problem.showGamesMat();
 
   Solution ranSol = randomSol(&problem, 0, 0);
 
+  cout << "Matrix original de visitas: " << endl;
   ranSol.showVisitsMatrix();
+
+  cout << "Matrix original de asignación de juegos: " << endl;
+  ranSol.showGameAssignMat();
+
   cout << ranSol.getDistance() << endl;
 
   cout << ranSol.getTotalCost() << endl;
 
-  // cout << ranSol.get
+  Solution test = randomSwap(&ranSol);
+
+  cout << "Matrix modificada de visitas: " << endl;
+  test.showVisitsMatrix();
+
+  cout << "Matrix modificada de asignación de juegos:" << endl;
+  test.showGameAssignMat();
+
+  cout << test.getDistance() << endl;
+  cout << test.getTotalCost() << endl;
 
 
 

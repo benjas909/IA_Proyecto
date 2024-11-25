@@ -27,16 +27,12 @@ Solution randomSol(TUP* problem, int d1, int d2) {
   for (int r = 0; r < problem->getnRounds(); r++) {
     vector<int> roundV;
     vector<vector<int>> roundG;
-
-    int occupied[problem->getnUmpires()];
-    for (int u = 0; u < problem->getnGamesPerRound(); u++) {
-      occupied[u] = 0;
-    }
+    vector<int> occupied(problem->getnUmpires(), 0);
 
     for (int u = 0; u < problem->getnGamesPerRound(); u++) {
-      int choice = randInt(0, problem->getnGamesPerRound());
+      int choice = randInt(0, problem->getnGamesPerRound() - 1);
       while (occupied[choice]) {
-        choice = randInt(0, problem->getnGamesPerRound());
+        choice = randInt(0, problem->getnGamesPerRound() - 1);
       }
       occupied[choice] = 1;
       roundV.push_back(games[r][choice][2]);
@@ -134,10 +130,6 @@ int nextDist(int currCity, int nextCity, vector<vector<int>> distMat) {
 // bool findGame(vector<vector<string>> games, vector<int> match) {
 //   bool found = (find(games.begin(), games.end(), match) != games.end());
 //   return found;
-// }
-
-// int calcCost(TUP* problem, vector<int> game, vector<int> visits, vector<int> lastSeen) {
-
 // }
 
 vector<vector<int>> transposeVector(const vector<vector<int>>& vec) {

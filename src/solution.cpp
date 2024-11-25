@@ -36,6 +36,22 @@ vector<vector<int>> Solution::getVisitsMatrix() {
   return this->visitsMatrix;
 }
 
+vector<vector<vector<int>>> Solution::getGameAssignMat() {
+  return this->gameAssignMat;
+}
+
+TUP* Solution::getProblem() {
+  return this->problem;
+}
+
+int Solution::getd1() {
+  return this->d1;
+}
+
+int Solution::getd2() {
+  return this->d2;
+}
+
 void Solution::showVisitsMatrix() {
   // cout << "visitsMat rows: " << this->visitsMatrix.size() << endl;
   // cout << "visitsMat columns: " << this->visitsMatrix[0].size() << endl;
@@ -151,4 +167,22 @@ vector<int> Solution::updateLastSeenMat(vector<int> lastSeen, int ump, int team1
   }
 
   return lastSeen;
+}
+
+vector<vector<int>> Solution::swapVEdges(int r, int u1, int u2) {
+  vector<vector<int>> newVMat = this->getVisitsMatrix();
+  int aux = newVMat[u1][r];
+  newVMat[u1][r] = newVMat[u2][r];
+  newVMat[u2][r] = aux;
+
+  return newVMat;
+}
+
+vector<vector<vector<int>>> Solution::swapGEdges(int r, int u1, int u2) {
+  vector<vector<vector<int>>> newGMat = this->getGameAssignMat();
+  vector<int> aux = newGMat[r][u1];
+  newGMat[r][u1] = newGMat[r][u2];
+  newGMat[r][u2] = aux;
+
+  return newGMat;
 }
