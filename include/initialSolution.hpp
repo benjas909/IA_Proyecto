@@ -5,9 +5,11 @@
 
 int randInt(int low, int high);
 
+float randFloat();
+
 Solution randomSol(TUP* problem, int d1, int d2);
 
-Solution greedy(TUP* problem, int d1, int d2);
+// Solution greedy(TUP* problem, int d1, int d2);
 
 int nextDist(int currCity, int nextCity, vector<vector<int>> distMat);
 

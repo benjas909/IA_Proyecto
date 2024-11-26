@@ -19,6 +19,8 @@ class Solution {
   int d1;
   int d2;
   int totalCost;
+  int teamViolations;
+  int placeViolations;
   vector<vector<int>> visitsMatrix;
   vector<vector<vector<int>>> gameAssignMat;
 
@@ -31,17 +33,19 @@ public:
 
   int getDistance();
   int getTotalCost();
-  TUP* getProblem();
   int getd1();
   int getd2();
-  vector<vector<int>> getVisitsMatrix();
-  vector<vector<vector<int>>> getGameAssignMat();
+  int getTeamViolations();
+  int getPlaceViolations();
+  TUP* getProblem();
+  vector<vector<int>> getVisitsMatrix() const;
+  vector<vector<vector<int>>> getGameAssignMat() const;
 
   void showVisitsMatrix();
   void showGameAssignMat();
 
-  vector<int> updateLastVisitedMat(vector<int> lastVisited, int ump, int place);
-  vector<int> updateLastSeenMat(vector<int> lastSeen, int ump, int team1, int team2);
+  vector<int> updateLastVisitedMat(vector<int> lastVisited, int place);
+  vector<int> updateLastSeenMat(vector<int> lastSeen, int team1, int team2);
 
   vector<vector<int>> swapVEdges(int r, int u1, int u2);
 

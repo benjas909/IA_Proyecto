@@ -5,14 +5,9 @@ int main() {
 
   TUP problem = readProblemFile("./instances/umps4.txt");
 
-  vector<vector<int>> visit = {
-    {2, 1, 3, 4, 2, 4},
-    {1, 3, 1, 3, 4, 2}
-  };
-
   problem.showGamesMat();
 
-  Solution ranSol = randomSol(&problem, 0, 0);
+  Solution ranSol = randomSol(&problem, 2, 1);
 
   cout << "Matrix original de visitas: " << endl;
   ranSol.showVisitsMatrix();
@@ -26,14 +21,28 @@ int main() {
 
   Solution test = randomSwap(&ranSol);
 
-  cout << "Matrix modificada de visitas: " << endl;
-  test.showVisitsMatrix();
+  // cout << "Matrix modificada de visitas: " << endl;
+  // test.showVisitsMatrix();
 
-  cout << "Matrix modificada de asignación de juegos:" << endl;
-  test.showGameAssignMat();
+  // cout << "Matrix modificada de asignación de juegos:" << endl;
+  // test.showGameAssignMat();
 
-  cout << test.getDistance() << endl;
-  cout << test.getTotalCost() << endl;
+  // cout << test.getDistance() << endl;
+  // cout << test.getTotalCost() << endl;
+
+  Solution bestSol = simulatedAnnealing(&problem, &ranSol, 2000, 0.95);
+
+  cout << "SA result dist: " << bestSol.getDistance() << endl;
+  cout << "SA result cost: " << bestSol.getTotalCost() << endl;
+
+  cout << "Best solution: " << endl;
+  cout << "Team Violations: " << bestSol.getTeamViolations() << endl;
+  cout << "Place Violations: " << bestSol.getPlaceViolations() << endl;
+
+  // for (int f = 0; f < 10; f++) {
+  //   cout << randFloat(0.0, 1.0) << " ";
+  // }
+  // cout << endl;
 
 
 

@@ -19,6 +19,10 @@ int randInt(int low, int high) {
   return (int)distr(gen);
 }
 
+float randFloat() {
+  return ((double)rand() / (double)RAND_MAX);
+}
+
 Solution randomSol(TUP* problem, int d1, int d2) {
   vector<vector<int>> assignments;
   vector<vector<vector<int>>> gameAssignment;
@@ -50,37 +54,37 @@ Solution randomSol(TUP* problem, int d1, int d2) {
 
 }
 
-Solution greedy(TUP* problem, int d1, int d2) {
-  int nUmps = problem->getnUmpires();
-  int nTeams = problem->getnTeams();
-  int nRounds = problem->getnRounds();
-  int nGamesPerRound = problem->getnGamesPerRound();
-  vector<vector<vector<int>>> gMatrix = problem->getGamesMatrix();
+// Solution greedy(TUP* problem, int d1, int d2) {
+//   int nUmps = problem->getnUmpires();
+//   int nTeams = problem->getnTeams();
+//   int nRounds = problem->getnRounds();
+//   int nGamesPerRound = problem->getnGamesPerRound();
+//   vector<vector<vector<int>>> gMatrix = problem->getGamesMatrix();
 
-  vector<vector<int>> lastVisit; // Vector de NxE, guarda la cantidad de slots desde que estuvo en cada sede
-  vector<vector<int>> lastSeenTeam; // Vector de NxE, guarda la cantidad de slots desde que arbitró a cada equipo
-  vector<vector<int>> hasVisited;
-  vector<vector<int>> umpAssignments;
+//   vector<vector<int>> lastVisit; // Vector de NxE, guarda la cantidad de slots desde que estuvo en cada sede
+//   vector<vector<int>> lastSeenTeam; // Vector de NxE, guarda la cantidad de slots desde que arbitró a cada equipo
+//   vector<vector<int>> hasVisited;
+//   vector<vector<int>> umpAssignments;
 
 
-  for (int r = 0; r < nRounds; r++) {
-    for (int u = 0; u < nUmps; u++) {
-      int occupied[nUmps];
+//   for (int r = 0; r < nRounds; r++) {
+//     for (int u = 0; u < nUmps; u++) {
+//       int occupied[nUmps];
 
-      if (u == 0) {
-        for (int a = 0; a < nUmps; a++) {
-          occupied[a] = 0;
-        }
-      }
+//       if (u == 0) {
+//         for (int a = 0; a < nUmps; a++) {
+//           occupied[a] = 0;
+//         }
+//       }
 
-      for (int g = 0; g < nGamesPerRound; g++) {
-        if (occupied[g] == 1) {
-          continue;
-        }
-        else {
+//       for (int g = 0; g < nGamesPerRound; g++) {
+//         if (occupied[g] == 1) {
+//           continue;
+//         }
+//         else {
 
-        }
-      }
+//         }
+//       }
 
       // }
       //   int occupied[nUmps]; // Indica qué partidos están asignados
@@ -118,10 +122,10 @@ Solution greedy(TUP* problem, int d1, int d2) {
 
       //     }
       //   }
-    }
+    // }
 
-  }
-}
+  // }
+// }
 
 int nextDist(int currCity, int nextCity, vector<vector<int>> distMat) {
   return distMat[currCity - 1][nextCity - 1];

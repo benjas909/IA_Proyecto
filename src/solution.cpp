@@ -8,7 +8,7 @@ Solution::Solution(TUP* prob, int d1, int d2, vector<vector<int>> vMat, vector<v
   // this->showVisitsMatrix();
   this->gameAssignMat = gameAssignMat;
   // this->showGameAssignMat();
-  this->distance = Solution::calcDistance();
+  this->distance = calcDistance();
   this->totalCost = calcTotalCost();
 }
 
@@ -32,11 +32,11 @@ int Solution::getTotalCost() {
   return this->totalCost;
 }
 
-vector<vector<int>> Solution::getVisitsMatrix() {
+vector<vector<int>> Solution::getVisitsMatrix() const {
   return this->visitsMatrix;
 }
 
-vector<vector<vector<int>>> Solution::getGameAssignMat() {
+vector<vector<vector<int>>> Solution::getGameAssignMat() const {
   return this->gameAssignMat;
 }
 
@@ -50,6 +50,14 @@ int Solution::getd1() {
 
 int Solution::getd2() {
   return this->d2;
+}
+
+int Solution::getTeamViolations() {
+  return this->teamViolations;
+}
+
+int Solution::getPlaceViolations() {
+  return this->placeViolations;
 }
 
 void Solution::showVisitsMatrix() {
@@ -93,30 +101,21 @@ int Solution::calcTotalCost() {
 int Solution::calcPlacePenalties() {
   int violations = 0;
   int nUmps = this->problem->getnUmpires();
-  int nRounds = this->problem->getnRounds();
+  // int nRounds = this->problem->getnRounds();
   vector<vector<int>> lastVisited(this->problem->getnUmpires(), vector<int>(this->problem->getnTeams(), constants::INF));
 
   for (int r = 0; r < this->problem->getnRounds(); r++) {
     for (int u = 0; u < nUmps; u++) {
       // Se puede hacer sin el if, sólo sumar al contador, luego lo veo
-      // cout << "lastv[u] size: " << lastVisited[u].size() << endl;
-      // cout << "place visited: " << this->visitsMatrix[u][r] << endl;
-
       if (checkPlaceConstr(nUmps, this->d1, this->visitsMatrix[u][r], lastVisited[u])) {
         violations++;
       }
-      lastVisited[u] = this->updateLastVisitedMat(lastVisited[u], u, this->visitsMatrix[u][r]);
+      lastVisited[u] = this->updateLastVisitedMat(lastVisited[u], this->visitsMatrix[u][r]);
       lastVisited[u][this->visitsMatrix[u][r] - 1] = 0;
 
-      // cout << "lastVisited for ump " << u + 1 << " " << endl;
-      // for (int x = 0; x < (int)lastVisited[u].size(); x++) {
-      //   cout << lastVisited[u][x] << " ";
-      // }
-      // cout << endl;
-      // cout << endl;
     }
   }
-  cout << "place violations: " << violations << endl;
+  this->placeViolations = violations;
   return violations;
 }
 
@@ -128,24 +127,19 @@ int Solution::calcTeamPenalties() {
   for (int r = 0; r < this->problem->getnRounds(); r++) {
     for (int u = 0; u < nUmps; u++) {
 
-      // cout << "curr umpire: " << u + 1 << " in round: " << r + 1 << endl;
-      // for (int e = 0; e < (int)gameAssignMat[r][u].size(); e++) {
-      //   cout << gameAssignMat[r][u][e] << " ";
-      // }
-      // cout << endl;
       violations += checkTeamConstr(nUmps, this->d2, this->gameAssignMat[r][u], lastSeen[u]);
-
-      lastSeen[u] = this->updateLastSeenMat(lastSeen[u], u, this->gameAssignMat[r][u][0], this->gameAssignMat[r][u][1]);
-      lastSeen[u][this->gameAssignMat[r][u][0]] = 0;
-      lastSeen[u][this->gameAssignMat[r][u][1]] = 0;
+      lastSeen[u] = this->updateLastSeenMat(lastSeen[u], this->gameAssignMat[r][u][0], this->gameAssignMat[r][u][1]);
+      lastSeen[u][this->gameAssignMat[r][u][0] - 1] = 0;
+      lastSeen[u][this->gameAssignMat[r][u][1] - 1] = 0;
     }
   }
-  cout << "team violations: " << violations << endl;
+  // cout << "team violations: " << violations << endl;
+  this->teamViolations = violations;
   return violations;
 }
 
 
-vector<int> Solution::updateLastVisitedMat(vector<int> lastVisited, int ump, int place) {
+vector<int> Solution::updateLastVisitedMat(vector<int> lastVisited, int place) {
 
   for (int j = 0; j < (int)(lastVisited.size()); j++) {
     if ((place - 1) == j) {
@@ -157,7 +151,7 @@ vector<int> Solution::updateLastVisitedMat(vector<int> lastVisited, int ump, int
   return lastVisited;
 }
 
-vector<int> Solution::updateLastSeenMat(vector<int> lastSeen, int ump, int team1, int team2) {
+vector<int> Solution::updateLastSeenMat(vector<int> lastSeen, int team1, int team2) {
 
   for (int j = 0; j < (int)(lastSeen.size()); j++) {
     if (((team1 - 1) == j) || ((team2 - 1) == j)) {
@@ -172,8 +166,11 @@ vector<int> Solution::updateLastSeenMat(vector<int> lastSeen, int ump, int team1
 vector<vector<int>> Solution::swapVEdges(int r, int u1, int u2) {
   vector<vector<int>> newVMat = this->getVisitsMatrix();
   int aux = newVMat[u1][r];
+  // cout << "aux: " << aux << endl;
   newVMat[u1][r] = newVMat[u2][r];
+  // cout << "test" << endl;
   newVMat[u2][r] = aux;
+
 
   return newVMat;
 }
