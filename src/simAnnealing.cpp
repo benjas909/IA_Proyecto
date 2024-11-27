@@ -7,6 +7,7 @@ Solution randomSwap(Solution* sol) {
   int r = randInt(0, nRounds - 1);
   int u1 = randInt(0, nUmps - 1);
   int u2 = randInt(0, nUmps - 1);
+  // cout << "(r: " << r << ", u1: " << u1 << ", u2: " << u2 << ")" << endl;
   while (u1 == u2) {
     u2 = randInt(0, nUmps - 1);
   }
@@ -25,10 +26,27 @@ Solution simulatedAnnealing(TUP* problem, Solution* initialSolution, int initial
   Solution currSol = *initialSolution;
   Solution bestSol = *initialSolution;
   Solution newSol = *initialSolution;
+  vector<vector<int>> idealVMat = { {2, 1, 3, 4, 2, 4}, {1, 3, 1, 3, 4, 2} };
+
+  for (const auto& v : idealVMat) {
+    // cout << u++ << endl;
+    for (const auto n : v) {
+      cout << n << " ";
+      // cout << o++ << endl;
+    }
+
+    cout << '\n';
+  }
+
+
+
+
+
   int currCost = currSol.getTotalCost();
   int bestCost = bestSol.getTotalCost();
   int newCost;
-  int minTemp = floor(initialTemp / 4);
+  // int minTemp = floor(initialTemp / 8);
+  int minTemp = 500;
   int maxIters = 2500;
   int it;
   int delta = 0;
@@ -42,17 +60,30 @@ Solution simulatedAnnealing(TUP* problem, Solution* initialSolution, int initial
       newSol = randomSwap(&currSol);
       newCost = newSol.getTotalCost();
       delta = newCost - currCost;
+      // cout << "delta " << delta << endl;
+
+      if (newSol.getVisitsMatrix() == idealVMat) {
+        cout << "///////////////////////////////////////////\n///////////////////////////////////////////" << endl;
+        cout << "IDEAL MATRIX FOUND" << endl;
+        newSol.showVisitsMatrix();
+        cout << "distance: " << newSol.getDistance() << endl;
+        cout << "total cost: " << newSol.getTotalCost() << endl;
+        cout << "team violations: " << newSol.getTeamViolations() << endl;
+        cout << "place violations: " << newSol.getPlaceViolations() << endl;
+        newSol.showGameAssignMat();
+        cout << "///////////////////////////////////////////\n///////////////////////////////////////////" << endl;
+      }
 
       if ((newCost <= currCost) || (randFloat() < exp(-abs(delta) / temp))) {
         currSol = newSol;
         currCost = newSol.getTotalCost();
-        cout << endl << "##############################" << endl;
-        cout << "New Current Solution: " << endl;
-        cout << "Distance: " << currSol.getDistance() << " | ";
-        cout << "Total Cost: " << currSol.getTotalCost() << " | ";
-        cout << "Team Violations: " << currSol.getTeamViolations() << " | ";
-        cout << "Place Violations: " << currSol.getPlaceViolations() << endl;
-        cout << "##############################" << endl << endl;
+        // cout << endl << "##############################" << endl;
+        // cout << "New Current Solution: " << endl;
+        // cout << "Distance: " << currSol.getDistance() << " | ";
+        // cout << "Total Cost: " << currSol.getTotalCost() << " | ";
+        // cout << "Team Violations: " << currSol.getTeamViolations() << " | ";
+        // cout << "Place Violations: " << currSol.getPlaceViolations() << endl;
+        // cout << "##############################" << endl << endl;
 
       }
       // cout << bestSol.getTotalCost() << endl;

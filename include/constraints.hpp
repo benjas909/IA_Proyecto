@@ -2,6 +2,7 @@
 #define CONSTRAINTS_HPP
 #include <vector>
 #include <cmath>
+#include <iostream>
 
 using namespace std;
 

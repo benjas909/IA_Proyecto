@@ -110,7 +110,7 @@ int Solution::calcPlacePenalties() {
       if (checkPlaceConstr(nUmps, this->d1, this->visitsMatrix[u][r], lastVisited[u])) {
         violations++;
       }
-      lastVisited[u] = this->updateLastVisitedMat(lastVisited[u], this->visitsMatrix[u][r]);
+      lastVisited[u] = updateLastVisitedMat(lastVisited[u], this->visitsMatrix[u][r]);
       lastVisited[u][this->visitsMatrix[u][r] - 1] = 0;
 
     }
@@ -128,7 +128,7 @@ int Solution::calcTeamPenalties() {
     for (int u = 0; u < nUmps; u++) {
 
       violations += checkTeamConstr(nUmps, this->d2, this->gameAssignMat[r][u], lastSeen[u]);
-      lastSeen[u] = this->updateLastSeenMat(lastSeen[u], this->gameAssignMat[r][u][0], this->gameAssignMat[r][u][1]);
+      lastSeen[u] = updateLastSeenMat(lastSeen[u], this->gameAssignMat[r][u][0], this->gameAssignMat[r][u][1]);
       lastSeen[u][this->gameAssignMat[r][u][0] - 1] = 0;
       lastSeen[u][this->gameAssignMat[r][u][1] - 1] = 0;
     }
@@ -139,10 +139,11 @@ int Solution::calcTeamPenalties() {
 }
 
 
-vector<int> Solution::updateLastVisitedMat(vector<int> lastVisited, int place) {
+vector<int> updateLastVisitedMat(vector<int> lastVisited, int place) {
 
   for (int j = 0; j < (int)(lastVisited.size()); j++) {
     if ((place - 1) == j) {
+      lastVisited[j] = 0;
       continue;
     }
     lastVisited[j]++;
@@ -151,11 +152,13 @@ vector<int> Solution::updateLastVisitedMat(vector<int> lastVisited, int place) {
   return lastVisited;
 }
 
-vector<int> Solution::updateLastSeenMat(vector<int> lastSeen, int team1, int team2) {
+vector<int> updateLastSeenMat(vector<int> lastSeen, int team1, int team2) {
 
   for (int j = 0; j < (int)(lastSeen.size()); j++) {
     if (((team1 - 1) == j) || ((team2 - 1) == j)) {
+      lastSeen[j] = 0;
       continue;
+
     }
     lastSeen[j]++;
   }

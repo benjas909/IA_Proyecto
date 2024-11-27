@@ -54,80 +54,111 @@ Solution randomSol(TUP* problem, int d1, int d2) {
 
 }
 
-// Solution greedy(TUP* problem, int d1, int d2) {
-//   int nUmps = problem->getnUmpires();
-//   int nTeams = problem->getnTeams();
-//   int nRounds = problem->getnRounds();
-//   int nGamesPerRound = problem->getnGamesPerRound();
-//   vector<vector<vector<int>>> gMatrix = problem->getGamesMatrix();
+Solution greedy(TUP* problem, int d1, int d2) {
+  int nRounds = problem->getnRounds();
+  cout << "Rondas: " << nRounds << endl;
+  int nUmps = problem->getnUmpires();
+  int nGames = nUmps;
+  vector<vector<vector<int>>> probGameMat = problem->getGamesMatrix();
+  vector<vector<int>> assignCosts(nUmps, vector<int>(nGames, constants::INF));
+  vector<vector<int>> vMat(nUmps, vector<int>(nRounds, constants::INF));
+  vector<vector<vector<int>>> gMat(nRounds, vector<vector<int>>(nUmps, vector<int>(3, constants::INF)));
+  vector<vector<int>> lastVisit(nUmps, vector<int>(2 * nUmps, constants::INF));
+  vector<vector<int>> lastSeen(nUmps, vector<int>(2 * nUmps, constants::INF));
+  vector<vector<int>> assignedUmp(nRounds, vector<int>(nUmps, 0));
+  vector<vector<int>> assignedGames(nRounds, vector<int>(nGames, 0));
+  vector<int> currCities(nUmps, 0);
+  vector<int> game(3, 0);
+  vector<int> indToAssign = { -1, -1 };
 
-//   vector<vector<int>> lastVisit; // Vector de NxE, guarda la cantidad de slots desde que estuvo en cada sede
-//   vector<vector<int>> lastSeenTeam; // Vector de NxE, guarda la cantidad de slots desde que arbitró a cada equipo
-//   vector<vector<int>> hasVisited;
-//   vector<vector<int>> umpAssignments;
 
+  // for (const auto& v : lastSeen) {
+  //   // cout << u++ << endl;
+  //   for (const auto n : v) {
+  //     cout << n << " ";
+  //     // cout << o++ << endl;
+  //   }
 
-//   for (int r = 0; r < nRounds; r++) {
-//     for (int u = 0; u < nUmps; u++) {
-//       int occupied[nUmps];
-
-//       if (u == 0) {
-//         for (int a = 0; a < nUmps; a++) {
-//           occupied[a] = 0;
-//         }
-//       }
-
-//       for (int g = 0; g < nGamesPerRound; g++) {
-//         if (occupied[g] == 1) {
-//           continue;
-//         }
-//         else {
-
-//         }
-//       }
-
-      // }
-      //   int occupied[nUmps]; // Indica qué partidos están asignados
-      //   if (r == 0) {
-      //     for (int u = 0; u < nUmps; u++) {
-      //       occupied[u] = 0;
-      //     }
-      //     for (int u = 0; u < nUmps; u++) {
-      //       vector<int> umpChoice;
-      //       int choice = randInt(1, nUmps);
-      //       while (occupied[choice - 1] == 1) {
-      //         choice = randInt(1, nUmps);
-      //       }
-      //       occupied[choice - 1] = 1;
-      //       umpChoice.push_back(choice);
-      //       assignUmp.push_back(umpChoice);
-      //     }
-      //   }
-      //   else {
-
-      //   }
-
-      // }
-
-      // for (int i = 0; i < problem->getnRounds(); i++) {
-      //   vector<int> currUmp;
-      //   assignUmp.push_back(currUmp);
-      //   if (i == 0) {
-      //     int choice = randInt(1, nUmps);
-      //     currRound.push_back(choice);
-      //   }
-      //   else {
-      //     int best = constants::INF;
-      //     for (int j = 0; j < nUmps; j++) {
-
-      //     }
-      //   }
-    // }
-
+  //   cout << '\n';
   // }
-// }
+
+  for (int r = 0; r < nRounds; r++) {
+    for (int u = 0; u < nUmps; u++) {
+      for (int g = 0; g < nGames; g++) {
+        cout << "r: " << r << " | u: " << u << " | g: " << g << endl;
+
+        game = problem->getGamesMatrix()[r][g];
+
+        // for (int t = 0; t < 2 * nUmps; t++) {
+        //   cout << lastSeen[u][t] << " ";
+        // }
+        // cout << endl;
+
+
+        assignCosts[u][g] = partialCost(problem, d1, d2, lastSeen[u], lastVisit[u], u, game, currCities[u]);
+
+        // cout << assignCosts[u][g] << endl;
+      }
+    }
+    for (int y = 0; y < nUmps; y++) {
+      cout << "y: " << y << endl;
+      cout << "numps: " << nUmps << endl;
+      // for (const auto& v : assignedUmp) {
+      //   // cout << u++ << endl;
+      //   for (const auto n : v) {
+      //     cout << n << " ";
+      //     // cout << o++ << endl;
+      //   }
+
+      //   cout << '\n';
+      // }
+
+      indToAssign = findLowest(assignCosts, assignedUmp[r], assignedGames[r]);
+
+      cout << "assigned vect: ";
+      for (int f = 0; f < (int)assignedUmp[r].size(); f++) {
+        cout << assignedUmp[r][f] << " ";
+      }
+      cout << endl;
+      // cout << "assignedump[r]: " << assignedUmp[r][1] << endl;
+      if (assignedUmp[r][indToAssign[0]] == 0) {
+
+        cout << "Assigned Umpire " << indToAssign[0] + 1 << " to game " << probGameMat[r][indToAssign[1]][0] << " vs " << probGameMat[r][indToAssign[1]][1] << " in place " << probGameMat[r][indToAssign[1]][2] << endl;
+        // cout << "segfault?: " << probGameMat[r][indToAssign[1]][2] << endl;
+        // cout << "indtoassign[0]: " << indToAssign[0] << endl;
+        vMat[indToAssign[0]][r] = probGameMat[r][indToAssign[1]][2];
+        gMat[r][indToAssign[0]] = probGameMat[r][indToAssign[1]];
+        assignedUmp[r][indToAssign[0]] = 1;
+        assignedGames[r][indToAssign[1]] = 1;
+        currCities[indToAssign[0]] = probGameMat[r][indToAssign[1]][2];
+        lastSeen[indToAssign[0]] = updateLastSeenMat(lastSeen[indToAssign[0]], probGameMat[r][indToAssign[1]][0], probGameMat[r][indToAssign[1]][1]);
+        lastVisit[indToAssign[0]] = updateLastVisitedMat(lastVisit[indToAssign[0]], probGameMat[r][indToAssign[1]][2]);
+      }
+
+    }
+  }
+
+  for (const auto& v : vMat) {
+    // cout << u++ << endl;
+    for (const auto n : v) {
+      cout << n << " ";
+      // cout << o++ << endl;
+    }
+
+    cout << '\n';
+  }
+
+  Solution initialSol(problem, d1, d2, vMat, gMat);
+  // aa
+  return initialSol;
+
+}
 
 int nextDist(int currCity, int nextCity, vector<vector<int>> distMat) {
+  if (currCity == 0) {
+    return 0;
+  }
+  // cout << "distance: " << distMat[currCity - 1][nextCity - 1] << endl;
   return distMat[currCity - 1][nextCity - 1];
 }
 
@@ -150,3 +181,83 @@ vector<vector<int>> transposeVector(const vector<vector<int>>& vec) {
   }
   return transVec;
 }
+
+int partialCost(TUP* problem, int d1, int d2, vector<int> lastSeen, vector<int> lastVisit, int Ump, vector<int> game, int currCity) {
+  // cout << "lastSeen: " << endl;
+  // for (int t = 0; t < problem->getnUmpires(); t++) {
+  //   cout << lastSeen[t] << " ";
+  // }
+  // cout << endl;
+  int teamViolations = checkTeamConstr(problem->getnUmpires(), d2, game, lastSeen);
+  // cout << "tV: " << teamViolations << endl;
+  int placeViolations = checkPlaceConstr(problem->getnUmpires(), d1, game[2], lastVisit);
+  // cout << "pV: " << placeViolations << endl;
+  int incentive = 0;
+  int partialCost;
+
+  // cout << "lastVisit[game[2]]: " << lastVisit[game[2]] << endl;
+  // if (lastVisit[game[2]] >= constants::INF) {
+  //   cout << "never visited, -500" << endl;
+  //   incentive = 500;
+  // }
+
+  partialCost = nextDist(currCity, game[2], problem->getDistMatrix()) - incentive + constants::PENALTY * (teamViolations + placeViolations);
+
+  return partialCost;
+
+}
+
+vector<int> findLowest(vector<vector<int>> assignCosts, vector<int> assignedUmps, vector<int> assignedGames) {
+  // vector<int>(assignCosts.size(), 0);
+  int lowestCost = constants::INF;
+  // cout << assigned.size() << endl;
+  vector<int> lowestIndex(2, 999);
+  // cout << assignCosts.size() << endl;
+
+
+  for (size_t i = 0; i < assignCosts.size(); i++) {
+    if (assignedUmps[i] == 1) {
+      continue;
+    }
+    for (size_t j = 0; j < assignCosts[i].size(); j++) {
+      // cout << "assign " << assignCosts[i][j] << endl;
+      if (assignedGames[j] == 1) {
+        continue;
+      }
+      if (assignCosts[i][j] < lowestCost) {
+        lowestCost = assignCosts[i][j];
+        lowestIndex = { (int)i, (int)j };
+        cout << "lowestInd Ump: " << lowestIndex[0] << endl;
+        cout << "lowestInd Game: " << lowestIndex[1] << endl;
+      }
+    }
+
+
+
+  }
+  return lowestIndex;
+}
+
+// vector<int> updateLastVisitedMat(vector<int> lastVisited, int place) {
+
+//   for (int j = 0; j < (int)(lastVisited.size()); j++) {
+//     if ((place - 1) == j) {
+//       continue;
+//     }
+//     lastVisited[j]++;
+//   }
+
+//   return lastVisited;
+// }
+
+// vector<int> updateLastSeenMat(vector<int> lastSeen, int team1, int team2) {
+
+//   for (int j = 0; j < (int)(lastSeen.size()); j++) {
+//     if (((team1 - 1) == j) || ((team2 - 1) == j)) {
+//       continue;
+//     }
+//     lastSeen[j]++;
+//   }
+
+//   return lastSeen;
+// }

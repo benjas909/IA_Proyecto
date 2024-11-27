@@ -9,10 +9,12 @@
 
 
 namespace constants {
-  const int INF = 1000000;
+  const int INF = 1000000000;
   const int PENALTY = 1000;
 }
 
+vector<int> updateLastVisitedMat(vector<int> lastVisited, int place);
+vector<int> updateLastSeenMat(vector<int> lastSeen, int team1, int team2);
 class Solution {
   TUP* problem;
   int distance;
@@ -44,8 +46,6 @@ public:
   void showVisitsMatrix();
   void showGameAssignMat();
 
-  vector<int> updateLastVisitedMat(vector<int> lastVisited, int place);
-  vector<int> updateLastSeenMat(vector<int> lastSeen, int team1, int team2);
 
   vector<vector<int>> swapVEdges(int r, int u1, int u2);
 
