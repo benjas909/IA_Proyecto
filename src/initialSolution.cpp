@@ -71,61 +71,21 @@ Solution greedy(TUP* problem, int d1, int d2) {
   vector<int> game(3, 0);
   vector<int> indToAssign = { -1, -1 };
 
-
-  // for (const auto& v : lastSeen) {
-  //   // cout << u++ << endl;
-  //   for (const auto n : v) {
-  //     cout << n << " ";
-  //     // cout << o++ << endl;
-  //   }
-
-  //   cout << '\n';
-  // }
-
   for (int r = 0; r < nRounds; r++) {
     for (int u = 0; u < nUmps; u++) {
       for (int g = 0; g < nGames; g++) {
-        cout << "r: " << r << " | u: " << u << " | g: " << g << endl;
 
         game = problem->getGamesMatrix()[r][g];
+        assignCosts[u][g] = partialCost(problem, d1, d2, lastSeen[u], lastVisit[u], game, currCities[u]);
 
-        // for (int t = 0; t < 2 * nUmps; t++) {
-        //   cout << lastSeen[u][t] << " ";
-        // }
-        // cout << endl;
-
-
-        assignCosts[u][g] = partialCost(problem, d1, d2, lastSeen[u], lastVisit[u], u, game, currCities[u]);
-
-        // cout << assignCosts[u][g] << endl;
       }
     }
     for (int y = 0; y < nUmps; y++) {
-      cout << "y: " << y << endl;
-      cout << "numps: " << nUmps << endl;
-      // for (const auto& v : assignedUmp) {
-      //   // cout << u++ << endl;
-      //   for (const auto n : v) {
-      //     cout << n << " ";
-      //     // cout << o++ << endl;
-      //   }
-
-      //   cout << '\n';
-      // }
 
       indToAssign = findLowest(assignCosts, assignedUmp[r], assignedGames[r]);
 
-      cout << "assigned vect: ";
-      for (int f = 0; f < (int)assignedUmp[r].size(); f++) {
-        cout << assignedUmp[r][f] << " ";
-      }
-      cout << endl;
-      // cout << "assignedump[r]: " << assignedUmp[r][1] << endl;
       if (assignedUmp[r][indToAssign[0]] == 0) {
 
-        cout << "Assigned Umpire " << indToAssign[0] + 1 << " to game " << probGameMat[r][indToAssign[1]][0] << " vs " << probGameMat[r][indToAssign[1]][1] << " in place " << probGameMat[r][indToAssign[1]][2] << endl;
-        // cout << "segfault?: " << probGameMat[r][indToAssign[1]][2] << endl;
-        // cout << "indtoassign[0]: " << indToAssign[0] << endl;
         vMat[indToAssign[0]][r] = probGameMat[r][indToAssign[1]][2];
         gMat[r][indToAssign[0]] = probGameMat[r][indToAssign[1]];
         assignedUmp[r][indToAssign[0]] = 1;
@@ -138,18 +98,7 @@ Solution greedy(TUP* problem, int d1, int d2) {
     }
   }
 
-  for (const auto& v : vMat) {
-    // cout << u++ << endl;
-    for (const auto n : v) {
-      cout << n << " ";
-      // cout << o++ << endl;
-    }
-
-    cout << '\n';
-  }
-
   Solution initialSol(problem, d1, d2, vMat, gMat);
-  // aa
   return initialSol;
 
 }
@@ -158,14 +107,9 @@ int nextDist(int currCity, int nextCity, vector<vector<int>> distMat) {
   if (currCity == 0) {
     return 0;
   }
-  // cout << "distance: " << distMat[currCity - 1][nextCity - 1] << endl;
   return distMat[currCity - 1][nextCity - 1];
 }
 
-// bool findGame(vector<vector<string>> games, vector<int> match) {
-//   bool found = (find(games.begin(), games.end(), match) != games.end());
-//   return found;
-// }
 
 vector<vector<int>> transposeVector(const vector<vector<int>>& vec) {
   if (vec.size() == 0) {
@@ -182,24 +126,16 @@ vector<vector<int>> transposeVector(const vector<vector<int>>& vec) {
   return transVec;
 }
 
-int partialCost(TUP* problem, int d1, int d2, vector<int> lastSeen, vector<int> lastVisit, int Ump, vector<int> game, int currCity) {
-  // cout << "lastSeen: " << endl;
-  // for (int t = 0; t < problem->getnUmpires(); t++) {
-  //   cout << lastSeen[t] << " ";
-  // }
-  // cout << endl;
+int partialCost(TUP* problem, int d1, int d2, vector<int> lastSeen, vector<int> lastVisit, vector<int> game, int currCity) {
+
   int teamViolations = checkTeamConstr(problem->getnUmpires(), d2, game, lastSeen);
-  // cout << "tV: " << teamViolations << endl;
   int placeViolations = checkPlaceConstr(problem->getnUmpires(), d1, game[2], lastVisit);
-  // cout << "pV: " << placeViolations << endl;
   int incentive = 0;
   int partialCost;
 
-  // cout << "lastVisit[game[2]]: " << lastVisit[game[2]] << endl;
-  // if (lastVisit[game[2]] >= constants::INF) {
-  //   cout << "never visited, -500" << endl;
-  //   incentive = 500;
-  // }
+  if (lastVisit[game[2]] >= constants::INF) {
+    incentive = 10000;
+  }
 
   partialCost = nextDist(currCity, game[2], problem->getDistMatrix()) - incentive + constants::PENALTY * (teamViolations + placeViolations);
 
@@ -208,11 +144,8 @@ int partialCost(TUP* problem, int d1, int d2, vector<int> lastSeen, vector<int> 
 }
 
 vector<int> findLowest(vector<vector<int>> assignCosts, vector<int> assignedUmps, vector<int> assignedGames) {
-  // vector<int>(assignCosts.size(), 0);
   int lowestCost = constants::INF;
-  // cout << assigned.size() << endl;
   vector<int> lowestIndex(2, 999);
-  // cout << assignCosts.size() << endl;
 
 
   for (size_t i = 0; i < assignCosts.size(); i++) {
@@ -220,15 +153,12 @@ vector<int> findLowest(vector<vector<int>> assignCosts, vector<int> assignedUmps
       continue;
     }
     for (size_t j = 0; j < assignCosts[i].size(); j++) {
-      // cout << "assign " << assignCosts[i][j] << endl;
       if (assignedGames[j] == 1) {
         continue;
       }
       if (assignCosts[i][j] < lowestCost) {
         lowestCost = assignCosts[i][j];
         lowestIndex = { (int)i, (int)j };
-        cout << "lowestInd Ump: " << lowestIndex[0] << endl;
-        cout << "lowestInd Game: " << lowestIndex[1] << endl;
       }
     }
 
@@ -237,27 +167,3 @@ vector<int> findLowest(vector<vector<int>> assignCosts, vector<int> assignedUmps
   }
   return lowestIndex;
 }
-
-// vector<int> updateLastVisitedMat(vector<int> lastVisited, int place) {
-
-//   for (int j = 0; j < (int)(lastVisited.size()); j++) {
-//     if ((place - 1) == j) {
-//       continue;
-//     }
-//     lastVisited[j]++;
-//   }
-
-//   return lastVisited;
-// }
-
-// vector<int> updateLastSeenMat(vector<int> lastSeen, int team1, int team2) {
-
-//   for (int j = 0; j < (int)(lastSeen.size()); j++) {
-//     if (((team1 - 1) == j) || ((team2 - 1) == j)) {
-//       continue;
-//     }
-//     lastSeen[j]++;
-//   }
-
-//   return lastSeen;
-// }

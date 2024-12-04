@@ -5,9 +5,7 @@ Solution::Solution(TUP* prob, int d1, int d2, vector<vector<int>> vMat, vector<v
   this->d1 = d1;
   this->d2 = d2;
   this->visitsMatrix = vMat;
-  // this->showVisitsMatrix();
   this->gameAssignMat = gameAssignMat;
-  // this->showGameAssignMat();
   this->distance = calcDistance();
   this->totalCost = calcTotalCost();
 }
@@ -61,13 +59,9 @@ int Solution::getPlaceViolations() {
 }
 
 void Solution::showVisitsMatrix() {
-  // cout << "visitsMat rows: " << this->visitsMatrix.size() << endl;
-  // cout << "visitsMat columns: " << this->visitsMatrix[0].size() << endl;
   for (const auto& v : this->visitsMatrix) {
-    // cout << u++ << endl;
     for (const auto n : v) {
       cout << n << " ";
-      // cout << o++ << endl;
     }
 
     cout << '\n';
@@ -101,7 +95,6 @@ int Solution::calcTotalCost() {
 int Solution::calcPlacePenalties() {
   int violations = 0;
   int nUmps = this->problem->getnUmpires();
-  // int nRounds = this->problem->getnRounds();
   vector<vector<int>> lastVisited(this->problem->getnUmpires(), vector<int>(this->problem->getnTeams(), constants::INF));
 
   for (int r = 0; r < this->problem->getnRounds(); r++) {
@@ -133,7 +126,6 @@ int Solution::calcTeamPenalties() {
       lastSeen[u][this->gameAssignMat[r][u][1] - 1] = 0;
     }
   }
-  // cout << "team violations: " << violations << endl;
   this->teamViolations = violations;
   return violations;
 }

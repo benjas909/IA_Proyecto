@@ -10,7 +10,7 @@
 
 namespace constants {
   const int INF = 1000000000;
-  const int PENALTY = 1000;
+  const int PENALTY = 10000;
 }
 
 vector<int> updateLastVisitedMat(vector<int> lastVisited, int place);

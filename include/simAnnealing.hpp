@@ -5,7 +5,7 @@
 
 Solution randomSwap(Solution* sol);
 
-Solution simulatedAnnealing(TUP* problem, Solution* initialSol, int initialTemp, float p);
+Solution simulatedAnnealing(Solution* initialSol, int initialTemp, float alpha);
 
 
 

@@ -4,6 +4,7 @@
 #include <vector>
 #include <stack>
 #include <iostream>
+#include <chrono>
 
 using namespace std;
 
@@ -15,6 +16,8 @@ class TUP {
   int nGamesPerRound;
   vector<vector<int>> distMatrix;
   vector<vector<int>> oppMatrix;
+
+  // Auxiliar
   vector<vector<vector<int>>> gamesMatrix;
 
 public:

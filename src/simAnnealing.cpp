@@ -21,58 +21,52 @@ Solution randomSwap(Solution* sol) {
 
 }
 
-Solution simulatedAnnealing(TUP* problem, Solution* initialSolution, int initialTemp, float p) {
+Solution simulatedAnnealing(Solution* initialSolution, int initialTemp, float alpha) {
   int temp = initialTemp;
   Solution currSol = *initialSolution;
   Solution bestSol = *initialSolution;
   Solution newSol = *initialSolution;
-  vector<vector<int>> idealVMat = { {2, 1, 3, 4, 2, 4}, {1, 3, 1, 3, 4, 2} };
+  // vector<vector<int>> idealVMat = { {2, 1, 3, 4, 2, 4}, {1, 3, 1, 3, 4, 2} };
 
-  for (const auto& v : idealVMat) {
-    // cout << u++ << endl;
-    for (const auto n : v) {
-      cout << n << " ";
-      // cout << o++ << endl;
-    }
+  // for (const auto& v : idealVMat) {
+  //   // cout << u++ << endl;
+  //   for (const auto n : v) {
+  //     cout << n << " ";
+  //     // cout << o++ << endl;
+  //   }
 
-    cout << '\n';
-  }
-
-
-
-
+  //   cout << '\n';
+  // }
 
   int currCost = currSol.getTotalCost();
   int bestCost = bestSol.getTotalCost();
   int newCost;
   // int minTemp = floor(initialTemp / 8);
-  int minTemp = 500;
-  int maxIters = 2500;
+  int minTemp = initialTemp / 4;
+  int maxIters = 10000;
   int it;
   int delta = 0;
 
   while (temp > minTemp) {
     cout << "Temp: " << temp << endl;
     it = 0;
-    cout << endl << endl << "best cost right now: " << bestCost << endl << endl;
+    // cout << endl << endl << "best cost right now: " << bestCost << endl << endl;
 
     while (it < maxIters) {
       newSol = randomSwap(&currSol);
       newCost = newSol.getTotalCost();
       delta = newCost - currCost;
-      // cout << "delta " << delta << endl;
-
-      if (newSol.getVisitsMatrix() == idealVMat) {
-        cout << "///////////////////////////////////////////\n///////////////////////////////////////////" << endl;
-        cout << "IDEAL MATRIX FOUND" << endl;
-        newSol.showVisitsMatrix();
-        cout << "distance: " << newSol.getDistance() << endl;
-        cout << "total cost: " << newSol.getTotalCost() << endl;
-        cout << "team violations: " << newSol.getTeamViolations() << endl;
-        cout << "place violations: " << newSol.getPlaceViolations() << endl;
-        newSol.showGameAssignMat();
-        cout << "///////////////////////////////////////////\n///////////////////////////////////////////" << endl;
-      }
+      // if (newSol.getVisitsMatrix() == idealVMat) {
+      //   cout << "///////////////////////////////////////////\n///////////////////////////////////////////" << endl;
+      //   cout << "IDEAL MATRIX FOUND" << endl;
+      //   newSol.showVisitsMatrix();
+      //   cout << "distance: " << newSol.getDistance() << endl;
+      //   cout << "total cost: " << newSol.getTotalCost() << endl;
+      //   cout << "team violations: " << newSol.getTeamViolations() << endl;
+      //   cout << "place violations: " << newSol.getPlaceViolations() << endl;
+      //   newSol.showGameAssignMat();
+      //   cout << "///////////////////////////////////////////\n///////////////////////////////////////////" << endl;
+      // }
 
       if ((newCost <= currCost) || (randFloat() < exp(-abs(delta) / temp))) {
         currSol = newSol;
@@ -86,25 +80,21 @@ Solution simulatedAnnealing(TUP* problem, Solution* initialSolution, int initial
         // cout << "##############################" << endl << endl;
 
       }
-      // cout << bestSol.getTotalCost() << endl;
-      // cout << newCost << " vs " << bestCost << endl;
       if (newCost < bestCost) {
-        // free(bestSol);
-        cout << endl << "************************" << endl;
-        // cout << bestSol->getTotalCost() << " -> " << currSol->getTotalCost() << endl;
+        // cout << endl << "************************" << endl;
         bestSol = newSol;
         currSol = newSol;
         currCost = bestCost = newSol.getTotalCost();
-        cout << "New Best Solution: " << endl;
-        cout << "Distance: " << bestSol.getDistance() << endl;
-        cout << "Total Cost: " << bestSol.getTotalCost() << endl;
-        cout << "Team Violations: " << bestSol.getTeamViolations() << endl;
-        cout << "Place Violations: " << bestSol.getPlaceViolations() << endl;
-        cout << "************************" << endl << endl;
+        // cout << "New Best Solution: " << endl;
+        // cout << "Distance: " << bestSol.getDistance() << endl;
+        // cout << "Total Cost: " << bestSol.getTotalCost() << endl;
+        // cout << "Team Violations: " << bestSol.getTeamViolations() << endl;
+        // cout << "Place Violations: " << bestSol.getPlaceViolations() << endl;
+        // cout << "************************" << endl << endl;
       }
       it++;
     }
-    temp *= p;
+    temp *= alpha;
   }
   return bestSol;
 }
