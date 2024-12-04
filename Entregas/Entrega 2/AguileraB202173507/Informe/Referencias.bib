@@ -1,0 +1,163 @@
+@inproceedings{trick_2007,
+  author    = {Trick, Michael A.
+               and Yildiz, Hakan},
+  editor    = {Van Hentenryck, Pascal
+               and Wolsey, Laurence},
+  title     = {Bender's Cuts Guided Large Neighborhood Search for the Traveling Umpire Problem},
+  booktitle = {Integration of AI and OR Techniques in Constraint Programming for Combinatorial Optimization Problems},
+  year      = {2007},
+  publisher = {Springer Berlin Heidelberg},
+  address   = {Berlin, Heidelberg},
+  pages     = {332--345},
+  abstract  = {This paper introduces the use of Bender's Cuts to guide a Large Neighborhood Search to solve the Traveling Umpire Problem, a sports scheduling problem inspired by the real-life needs of the officials of a sports league. At each time slot, a Greedy Matching heuristic is used to construct a schedule. When an infeasibility is recognized Bender's cuts are generated, which guides a Large Neighborhood Search to ensure feasibility and to improve the solution.},
+  isbn      = {978-3-540-72397-4}
+}
+
+@article{trick_2012,
+  author  = {Trick, Michael A. and Yildiz, Hakan and Yunes, Tallys},
+  journal = {INFORMS Journal on Applied Analytics},
+  number  = {3},
+  year    = {2012},
+  pages   = {232--244},
+  title   = {{Scheduling Major League Baseball Umpires and the Traveling Umpire Problem}},
+  volume  = {42},
+  doi     = {10.1287/inte.1100.0514},
+  url     = {https://doi.org/10.1287/inte.1100.0514}
+}
+@inproceedings{ttp_2001,
+  author    = {Easton, Kelly
+               and Nemhauser, George
+               and Trick, Michael},
+  editor    = {Walsh, Toby},
+  title     = {The Traveling Tournament Problem Description and Benchmarks},
+  booktitle = {Principles and Practice of Constraint Programming --- CP 2001},
+  year      = {2001},
+  publisher = {Springer Berlin Heidelberg},
+  address   = {Berlin, Heidelberg},
+  pages     = {580--584},
+  abstract  = {The Traveling Tournament Problem is a sports timetabling problem that abstracts two issues in creating timetables:home/away pattern feasibility and team travel. Instances of this problem seem to be very dificult even for a very small number of teams,making it an interesting challenge for combinatorial optimization techniques such as integer programming and constraint programming. We introduce the problem, describe one way of modeling it,and give some interesting classes of instances with base computational results.},
+  isbn      = {978-3-540-45578-3}
+}
+
+@article{TRICK2012286,
+  title    = {Locally Optimized Crossover for the Traveling Umpire Problem},
+  journal  = {European Journal of Operational Research},
+  volume   = {216},
+  number   = {2},
+  pages    = {286-292},
+  year     = {2012},
+  issn     = {0377-2217},
+  doi      = {https://doi.org/10.1016/j.ejor.2011.07.049},
+  url      = {https://www.sciencedirect.com/science/article/pii/S0377221711006813},
+  author   = {Michael A. Trick and Hakan Yildiz},
+  keywords = {Scheduling, Genetic algorithms, OR in sports},
+  abstract = {This paper presents a genetic algorithm (GA) to solve the Traveling Umpire Problem, which is a recently introduced sports scheduling problem that is based on the most important features of the real Major League Baseball umpire scheduling problem. In our GA, contrary to the traditional way of randomly obtaining new solutions from parent solutions, we obtain partially optimized solutions with a Locally Optimized Crossover operator. This operator also presents a link between the evolutionary mechanism on a population of solutions and the local search on a single solution. We present improved results over other methods on benchmark instances.}
+}
+
+@article{DEOLIVEIRA2014592,
+  title    = {Improved bounds for the traveling umpire problem: A stronger formulation and a relax-and-fix heuristic},
+  journal  = {European Journal of Operational Research},
+  volume   = {236},
+  number   = {2},
+  pages    = {592-600},
+  year     = {2014},
+  issn     = {0377-2217},
+  doi      = {https://doi.org/10.1016/j.ejor.2013.12.019},
+  url      = {https://www.sciencedirect.com/science/article/pii/S0377221713010035},
+  author   = {Lucas {de Oliveira} and Cid C. {de Souza} and Tallys Yunes},
+  keywords = {OR in sports, Baseball, Heuristics, Integer programming, Relax-and-fix, Traveling umpire problem},
+  abstract = {Given a double round-robin tournament, the traveling umpire problem (TUP) consists of determining which games will be handled by each one of several umpire crews during the tournament. The objective is to minimize the total distance traveled by the umpires, while respecting constraints that include visiting every team at home, and not seeing a team or venue too often. We strengthen a known integer programming formulation for the TUP and use it to implement a relax-and-fix heuristic that improves the quality of 24 out of 25 best-known feasible solutions to instances in the TUP benchmark. We also improve all best-known lower bounds for those instances and, for the first time, provide lower bounds for instances with more than 16 teams.}
+}
+@online{TUP_Website,
+  author = {T\'{u}lio A. M. Toffolo and Tony Wauters and Michael Trick},
+  title  = {An automated benchmark website for the Traveling Umpire Problem},
+  month  = jun,
+  year   = {2015},
+  url    = {http://gent.cs.kuleuven.be/tup}
+}
+
+@article{XUE2015932,
+  title    = {Two exact algorithms for the traveling umpire problem},
+  journal  = {European Journal of Operational Research},
+  volume   = {243},
+  number   = {3},
+  pages    = {932-943},
+  year     = {2015},
+  issn     = {0377-2217},
+  doi      = {https://doi.org/10.1016/j.ejor.2014.12.038},
+  url      = {https://www.sciencedirect.com/science/article/pii/S037722171401056X},
+  author   = {Li Xue and Zhixing Luo and Andrew Lim},
+  keywords = {Umpire scheduling, Lagrangian relaxation, Column generation, OR in sports, Mathematical model},
+  abstract = {In this paper, we study the traveling umpire problem (TUP), a difficult combinatorial optimization problem that is formulated based on the key issues of Major League Baseball. We introduce an arc-flow model and a set partition model to formulate the problem. Based on these two models, we propose a branch-and-bound algorithm and a branch-and-price-and-cut algorithm. The branch-and-bound algorithm relies on lower bounds provided by a Lagrangian relaxation of the arc-flow model, while the branch-and-price-and-cut algorithm exploits lower bounds from the linear programming relaxation of the set partition model strengthened by a family of valid inequalities. In the branch-and-price-and-cut algorithm, we design an efficient label-setting algorithm to solve the pricing problem, and a branching strategy that combines three different branching rules. The two algorithms are tested on a set of well-known benchmark instances. The two exact algorithms are both able to rapidly solve instances with 10 teams or less, while the branch-and-price-and-cut algorithm can solve two instances with 14 teams. This is the first time that instances with 14 teams have been solved to optimality.}
+}
+@article{trick_yildiz_2011,
+  author   = {Trick, Michael A. and Yildiz, Hakan},
+  title    = {Benders' cuts guided large neighborhood search for the traveling umpire problem},
+  journal  = {Naval Research Logistics (NRL)},
+  volume   = {58},
+  number   = {8},
+  pages    = {771-781},
+  keywords = {personnel scheduling, spots, benders cuts, large neighborhood search},
+  doi      = {https://doi.org/10.1002/nav.20482},
+  url      = {https://onlinelibrary.wiley.com/doi/abs/10.1002/nav.20482},
+  eprint   = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/nav.20482},
+  abstract = {Abstract This article introduces the use of Benders' cuts to guide a large neighborhood search to solve the traveling umpire problem, a sports scheduling problem inspired by the real-life needs of the officials of a sports league. At each time slot, a greedy matching heuristic is used to construct a schedule. When an infeasibility is recognized first a single step backtracking is tried to resolve the infeasibility. If unsuccessful, Benders' cuts are generated to guide a large neighborhood search to ensure feasibility and to improve the solution. Realizing the inherent symmetry present in the problem, a large family of cuts are generated and their effectiveness is tested. The resulting approach is able to find better solutions to many instances of this problem. © 2011 Wiley Periodicals, Inc. Naval Research Logistics, 2011},
+  year     = {2011}
+}
+
+@article{WAUTERS2014886,
+  title    = {Decomposition and local search based methods for the traveling umpire problem},
+  journal  = {European Journal of Operational Research},
+  volume   = {238},
+  number   = {3},
+  pages    = {886-898},
+  year     = {2014},
+  issn     = {0377-2217},
+  doi      = {https://doi.org/10.1016/j.ejor.2014.04.043},
+  url      = {https://www.sciencedirect.com/science/article/pii/S0377221714003853},
+  author   = {Tony Wauters and Sam {Van Malderen} and Greet {Vanden Berghe}},
+  keywords = {OR in sports, Traveling umpire problem, Heuristics, Iterated local search, Decomposition},
+  abstract = {The Traveling Umpire Problem (TUP) is a challenging combinatorial optimization problem based on scheduling umpires for Major League Baseball. The TUP aims at assigning umpire crews to the games of a fixed tournament, minimizing the travel distance of the umpires. The present paper introduces two complementary heuristic solution approaches for the TUP. A new method called enhanced iterative deepening search with leaf node improvements (IDLI) generates schedules in several stages by subsequently considering parts of the problem. The second approach is a custom iterated local search algorithm (ILS) with a step counting hill climbing acceptance criterion. IDLI generates new best solutions for many small and medium sized benchmark instances. ILS produces significant improvements for the largest benchmark instances. In addition, the article introduces a new decomposition methodology for generating lower bounds, which improves all known lower bounds for the benchmark instances.}
+}
+
+@article{ChandrasekharanToffoloWauters+2019+41+57,
+  url         = {https://doi.org/10.1515/jqas-2017-0118},
+  title       = {Analysis of a constructive matheuristic for the traveling umpire problem},
+  author      = {Reshma Chirayil Chandrasekharan and T\'ulio A.M. Toffolo and Tony Wauters},
+  pages       = {41--57},
+  volume      = {15},
+  number      = {1},
+  journal     = {Journal of Quantitative Analysis in Sports},
+  doi         = {doi:10.1515/jqas-2017-0118},
+  year        = {2019},
+  lastchecked = {2024-10-04}
+}
+
+@article{TOFFOLO2016737,
+  title    = {Branch-and-bound with decomposition-based lower bounds for the Traveling Umpire Problem},
+  journal  = {European Journal of Operational Research},
+  volume   = {250},
+  number   = {3},
+  pages    = {737-744},
+  year     = {2016},
+  issn     = {0377-2217},
+  doi      = {https://doi.org/10.1016/j.ejor.2015.10.004},
+  url      = {https://www.sciencedirect.com/science/article/pii/S037722171500911X},
+  author   = {T\'ulio A.M. Toffolo and Tony Wauters and Sam {Van Malderen} and Greet {Vanden Berghe}},
+  keywords = {Traveling Umpire Problem, Decomposition strategies, Branch-and-bound},
+  abstract = {The Traveling Umpire Problem (TUP) is an optimization problem in which umpires have to be assigned to games in a double round robin tournament. The objective is to obtain a solution with minimum total travel distance over all umpires, while respecting hard constraints on assignments and sequences. Up till now, no general nor dedicated algorithm was able to solve all instances with 12 and 14 teams. We present a novel branch-and-bound approach to the TUP, in which a decomposition scheme coupled with an efficient propagation technique produces the lower bounds. The algorithm is able to generate optimal solutions for all the 12- and 14-team instances as well as for 11 of the 16-team instances. In addition to the new optimal solutions, some new best solutions are presented and other instances have been proven infeasible.}
+}
+
+@article{Kirkpatrick1983,
+  author   = {S. Kirkpatrick  and C. D. Gelatt  and M. P. Vecchi },
+  title    = {Optimization by Simulated Annealing},
+  journal  = {Science},
+  volume   = {220},
+  number   = {4598},
+  pages    = {671-680},
+  year     = {1983},
+  doi      = {10.1126/science.220.4598.671},
+  url      = {https://www.science.org/doi/abs/10.1126/science.220.4598.671},
+  eprint   = {https://www.science.org/doi/pdf/10.1126/science.220.4598.671},
+  abstract = {There is a deep and useful connection between statistical mechanics (the behavior of systems with many degrees of freedom in thermal equilibrium at a finite temperature) and multivariate or combinatorial optimization (finding the minimum of a given function depending on many parameters). A detailed analogy with annealing in solids provides a framework for optimization of the properties of very large and complex systems. This connection to statistical mechanics exposes new information and provides an unfamiliar perspective on traditional optimization problems and methods.}
+}

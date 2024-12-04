@@ -1,0 +1,408 @@
+\documentclass[letter, 10pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{float}
+% \usepackage{algcompatible}
+% OR \usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage[dvips]{graphicx}
+\usepackage{url}
+\usepackage[top=3cm,bottom=3cm,left=3.5cm,right=3.5cm,footskip=1.5cm,headheight=1.5cm,headsep=.5cm,textheight=3cm]{geometry}
+
+
+
+\begin{document}
+\title{Inteligencia Artificial \\ \begin{Large}Travelling Umpire Problem\end{Large}}
+\author{Benjam\'in Aguilera}
+\date{\today}
+\maketitle
+
+
+%--------------------No borrar esta secci\'on--------------------------------%
+\section*{Evaluaci\'on}
+
+\begin{tabular}{ll}
+  Resumen (5\%):                    & \underline{\hspace{2cm}} \\
+  Introducci\'on (5\%):             & \underline{\hspace{2cm}} \\
+  Definici\'on del Problema (10\%): & \underline{\hspace{2cm}} \\
+  Estado del Arte (35\%):           & \underline{\hspace{2cm}} \\
+  Modelo Matem\'atico (20\%):       & \underline{\hspace{2cm}} \\
+  Conclusiones (20\%):              & \underline{\hspace{2cm}} \\
+  Bibliograf\'ia (5\%):             & \underline{\hspace{2cm}} \\
+                                    &                          \\
+  \textbf{Nota Final (100\%)}:      & \underline{\hspace{2cm}}
+\end{tabular}
+%---------------------------------------------------------------------------%
+\vspace{2cm}
+\counterwithin*{equation}{subsection}
+
+\begin{abstract}
+
+  El presente informe presenta el Problema de los Vendedores Viajeros, mejor conocido como el Travelling Umpire Problem (TUP), el cual consiste en la asignaci\'on de \'arbitros a juegos o partidos de una liga deportiva sujeto a ciertas restricciones y buscando la minimizaci\'on de la distancia de viaje de cada juez. Adem\'as, se analiza el estado del arte con respecto a la resoluci\'on de problemas de este tipo, mostrando diferentes enfoques usados en la literatura desde su formulaci\'on hasta el presente.
+  El objetivo de este proyecto es profundizar de manera pr\'actica el entendimiento del funcionamiento de diversos algoritmos de b\'usqueda usados en proyectos de Inteligencia Artificial, y tambi\'en tener un primer acercamiento al desarrollo de este tipo de programas.
+
+\end{abstract}
+
+\section{Introducci\'on}
+
+El Travelling Umpire Problem tiene su origen en las necesidades y obst\'aculos reales enfrentados por la organizaci\'on de diversas ligas o torneos de deportes, en espec\'ifico, los primeros formuladores de este problema se basaron en las dificultades que enfrentaba la Major League Baseball (MLB) al decidir qu\'e partidos se asignan a cada \'arbitro o grupo de \'arbitros de su equipo de jueces, teniendo en cuenta la frecuencia con la que un \'arbitro es asignado a partidos del mismo equipo y frecuencia de visitas a cada sede de la liga. \cite{trick_2007}
+Debido a la alta complejidad de este problema, se le denomina un problema NP-Completo.
+
+El prop\'osito de este informe es presentar el problema y analizar retrospectivamente los esfuerzos en el modelamiento y resoluci\'on de este problema que ya han sido explorados por otros autores, con el fin de sentar las bases para la implementaci\'on de una soluci\'on propia en los siguientes avances de este proyecto.
+
+En la secci\'on 2 se define el problema, por medio de una breve descripci\'on de su contexto, variables, restricciones y objetivos.
+En la secci\'on 3 se presenta el estado del arte, donde se exponen las metodolog\'ias usadas a traves de los a\~nos para lograr una soluci\'on \'optima para este problema.
+Por \'ultimo, en la secci\'on 4, se formula el modelo matem\'atico asociado a este problema.
+
+\section{Travelling Umpire Problem}
+
+El Travelling Umpire Problem tiene su origen en el Travelling Tournament Problem (TTP) \cite{trick_2007} \cite{ttp_2001}, un problema multi-objetivo que consiste en asignar un itinerario de juegos o partidos de un torneo de tipo doble round robin con el objetivo de minimizar distancias recorridas por los equipos, cumplir con los deseos de cada equipo con respecto a sus juegos en casa y fuera de casa, entre otros. \cite{ttp_2001}
+
+La investigaci\'on de este problema deriva en la formulaci\'on del Travelling Umpire Problem, el cual consiste en la asignaci\'on de $N$ \'arbitros a los partidos de un torneo de tipo doble round-robin, conformado por $2N$ equipos. Este torneo consiste en $4N-2$ rondas de ida y vuelta, jugando una vez en cada sede de ambos equipos. \cite{trick_2007}
+
+El TUP, fue originalmente formulado como un problema multi-objetivo, sin embargo, Trick y Yildiz \cite{trick_2007} y la mayor parte de la literatura asociada al problema, consideran la versi\'on de un s\'olo objetivo de este problema, en la cu\'al se busca minimizar la distancia recorrida por cada \'arbitro.
+
+\subsection{Variables}
+\begin{itemize}
+  \item Grupo de \'arbitros a asignar.
+\end{itemize}
+
+\subsection{Restricciones}
+\begin{enumerate}
+  \item Cada partido del torneo es oficiado por ex\'actamente un \'arbitro.
+  \item Cada \'arbitro dirige ex\'actamente un partido por ronda.
+  \item Cada \'arbitro debe visitar la sede local de cada equipo por lo menos una vez.
+  \item Ning\'un \'arbitro debe visitar la misma sede m\'as de una vez en un n\'umero espec\'ifico de rondas consecutivas.
+  \item Ning\'un \'arbitro debe dirigir al mismo equipo m\'as de una vez en un n\'umero espec\'ifico de rondas consecutivas.
+\end{enumerate}
+
+\subsection{Objetivo}
+
+\begin{itemize}
+  \item El objetivo principal de este problema es minimizar la distancia total recorrida por cada \'arbitro.
+\end{itemize}
+
+
+\section{Estado del Arte}
+
+% La informaci\'on que describen en este punto se basa en los estudios realizados con antelaci\'on respecto al tema.
+% Lo m\'as importante que se ha hecho hasta ahora con relaci\'on al problema. Deber\'ia responder preguntas como las siguientes:
+% ?`cu\'ando surge?, ?`qu\'e m\'etodos se han usado para resolverlo?, ?`cu\'ales son los mejores algoritmos que se han creado hasta
+% la fecha?, ?`qu\'e representaciones han tenido los mejores resultados?, ?`cu\'al es la tendencia actual para resolver el problema?, tipos de movimientos, heur\'isticas, m\'etodos completos, tendencias, etc... Puede incluir gr\'aficos comparativos o explicativos.\\
+
+Desde su formulaci\'on y a lo largo de los a\~nos, se han usado diversos enfoques para lograr una soluci\'on eficiente a este problema, siendo los formuladores del problema, Trick y Yildiz \cite{trick_2007}, los primeros en proponer t\'ecnicas para la resoluci\'on del mismo.
+
+En primera instancia, Trick \emph{et al} \cite{trick_2007} compararon el TUP con otro problema cl\'asico similar, el Travelling Salesman Problem, con la diferencia que el \'ultimo se puede resolver de manera exacta/\'optima para instancias de cientos o miles de variables, mientras que los autores de la publicaci\'on muestran que esto no es posible usando programaci\'on entera o de restricciones con t\'ecnicas de b\'usqueda completa.
+
+Como resultado de lo expuesto anteriormente, los autores proceden a implementar t\'ecnicas de b\'usqueda incompleta, las cuales sacrifican la obtenci\'on de una soluci\'on \'optima global con el objetivo de obtener soluciones buenas (no \'optimas). La principal t\'ecnica usada fue una Neighborhood Search guiada por una heur\'istica de matching de tipo greedy con Benders' Cuts (abreviada GBNS). Esta t\'ecnica representa el problema como un grafo bipartito en el cual las particiones corresponden a los \'arbitros y los partidos de cada ronda. Finalmente, se comparan los resultados del uso de programaci\'on entera y el uso de GBNS, y queda en evidencia la importante mejora en los tiempos de resoluci\'on y la calidad de las soluciones al usar GBNS en comparaci\'on a la programaci\'on entera. \cite{trick_2007}
+
+El a\~no 2011, Trick y Yildiz vuelven a probar el rendimiento de su algoritmo, esta vez ajustando la configuraci\'on del solver utilizado para los modelos de programaci\'on entera y de restricciones, sin embargo, el uso de GBNS sigue obteniendo mejor rendimiento que estas dos t\'ecnicas. \cite{trick_yildiz_2011}
+
+El pr\'oximo avance importante fue el uso de un algoritmo gen\'etico para resolver el problema, el cu\'al arroj\'o muy buenos resultados en muy poco tiempo en comparaci\'on con el uso de programaci\'on de restricciones y de programaci\'on entera. \cite{TRICK2012286}
+
+En el a\~no 2014, de Oliveira \emph{et al} \cite{DEOLIVEIRA2014592} publicaron los resultados de su investigaci\'on con respecto a este problema. En este, los autores propusieron un ajuste a la formulaci\'on original en programaci\'on entera propuesta por Trick y Yildiz \cite{trick_2007}, y la usaron para implementar una heur\'istica de relajaci\'on y fijaci\'on de variables y valores, la cu\'al mejor\'o la calidad de 24 de un total de 25 mejores soluciones para instancias publicadas en TUP Benchmark \cite{TUP_Website}, a la vez que mejoraron los l\'imites inferiores para estas instancias y por primera vez impusieron l\'imites inferiores para instancias de m\'as de 16 equipos. \cite{DEOLIVEIRA2014592}
+
+Ese mismo a\~no, Wauters \emph{et al} \cite{WAUTERS2014886} presentan dos algoritmos heur\'isticos, denominados \emph{Enhanced Iterative Deepening Search with Leaf Node Improvements}, el cual divide el problema y resuelve cada segmento recursivamente y un algoritmo de b\'usqueda local iterada. Estos m\'etodos lograron mejorar la calidad de las soluciones para instancias medianas.
+
+El siguiente a\~no, Xue \emph{et al} \cite{XUE2015932} introducen un modelo de flujo de arcos y uno de \emph{set partition}, y bas\'andose en estos, proponen un algoritmo \emph{branch and bound} y un algoritmo \emph{branch and price and cut}. Usando estos algoritmos, los autores lograron, por primera vez, encontrar soluciones \'optimas a instancias de 14 equipos, sin embargo, el tiempo de c\'omputo fue de m\'as de 24 horas.
+
+En 2018, Chandrasekharan \emph{et al} \cite{ChandrasekharanToffoloWauters+2019+41+57} proponen un algoritmo metaheur\'istico constructivo, el cu\'al se dise\~n\'o con el objetivo de generar soluciones factibles para instancias grandes, objetivo que logra sin problemas. Adem\'as, este algoritmo logra mejorar las soluciones de dos instancias de 18 equipos.
+
+\section{Modelo Matem\'atico}
+
+\subsection{Modelo Integer Programming, Trick and Yildiz, 2011}
+
+Se presenta el modelo original de programaci\'on entera formulado por Trick y Yildiz \cite{trick_yildiz_2011} en su primera publicaci\'on sobre el problema, el cu\'al ha sido usado como base por gran parte de las publicaciones asociadas a este problema.
+
+\subsubsection{Par\'ametros}
+\begin{itemize}
+  \item $T = \{1, 2, ..., 2N\} $ corresponde al conjunto de equipos
+  \item $S = \{1, 2, ..., 4N-2\}$ corresponde al conjunto de rondas.
+  \item $U = \{1, 2, ..., N \}$ corresponde al conjunto de \'arbitros.
+  \item $
+          OPP[s, i] = \begin{cases}
+            j  & \text{si el equipo i juega contra el euipo j en la sede de i en la ronda s},  \\
+            -j & \text{si el equipo i juega contra el equipo j en la sede de j en la ronda s}.
+          \end{cases}
+        $
+  \item $d_{ij} = $ distancia entre la sede i y la sede j.
+\end{itemize}
+
+Tambi\'en se definen las siguientes constantes para lograr mayor legibilidad:
+\begin{itemize}
+  \item $n_1 = n - d_1 - 1$
+  \item $n_2 = \lfloor \frac{n}{2} \rfloor - d_2 - 1$
+  \item $N_1 = \{0, ..., n_1 \}$
+  \item $N_2 = \{0, ..., n_2 \}$
+\end{itemize}
+
+\subsubsection{Variables}
+\begin{itemize}
+  \item $x_{isu} = \begin{cases}
+            1 & \text{si el partido jugado en la sede $i \in T$ en la ronda $s \in S$ es asignado al \'arbitro $u \in U$}, \\
+            0 & \text{en caso contrario.}
+          \end{cases}
+        $
+  \item $z_{ijsu} = \begin{cases}
+            1 & \text{si el \'arbitro $u$ est\'a en la sede $i$ y se mueve a la sede j en la ronda $s + 1$}, \\
+            0 & \text{en caso cnotrario.}
+          \end{cases}
+        $
+\end{itemize}
+
+\subsubsection{Funci\'on Objetivo}
+\begin{equation*}
+  \text{Minimizar} \displaystyle\sum_{i \in T} \displaystyle\sum_{j \in T} \displaystyle\sum_{u \in U} \displaystyle\sum_{s \in S:s < |S|} d_{ij}z_{ijsu}
+\end{equation*}
+
+\subsubsection{Restricciones}
+
+
+\begin{equation} \label{1_1}
+  \displaystyle\sum_{u \in U} x_{isu} = 1, \quad\forall i \in T, s \in S : OPP[s, i] > 0
+\end{equation}
+
+\begin{equation} \label{1_2}
+  \displaystyle\sum_{i \in T:OPP[s, i] > 0} x_{isu} = 1, \quad\forall s \in S, u \in U
+\end{equation}
+
+\begin{equation} \label{1_3}
+  \displaystyle\sum_{s \in S:OPP[s, i] > 0} x_{isu} \geq 1, \quad\forall i \in T, u \in U
+\end{equation}
+
+\begin{equation} \label{1_4}
+  \displaystyle\sum_{s_1 \in N_1} x_{i(s+s_1)u} \leq 1, \quad\forall i \in T, u \in U, s \in S:s \leq |S| - n_1
+\end{equation}
+
+\begin{equation} \label{1_5}
+  \displaystyle\sum_{s_2 \in N_2}\left(x_{i(s+s_2)u} + \displaystyle\sum_{k \in T:OPP\left[s+s_2, k\right]=i} x_{k(s+s_2)u}  \right) \leq 1, \quad\forall i \in T, u \in U, s \in S:s \leq |S| - n_2
+\end{equation}
+
+
+La restricci\'on (\ref{1_1}) asegura que cada partido reciba un juez.
+
+La restricci\'on (\ref{1_2}) asegura que cada juez oficie exactamente $1$ partido en cada ronda.
+
+La restricci\'on (\ref{1_3}) impone que cada juez vea a cada equipo por lo menos una vez durante el torneo.
+
+La restricci\'on (\ref{1_4}) impone que ning\'un juez deber\'ia estar en la sede de un equipo m\'as de una vez en $n_1$ rondas consecutivas.
+
+La restricci\'on (\ref{1_5}) asegura que ning\'un juez vea al mismo equipo m\'as de una vez en $n_2$ rondas consecutivas.
+
+\subsection{Modelo de programaci\'on entera formulado por Toffolo \emph{et al}}
+Se presenta tambi\'en el modelo de flujo presentado por Toffolo \emph{et al}\cite{TOFFOLO2016737}, el cual es usado en la mayor parte de publicaciones desde su formulaci\'on hasta la fecha. Este modelo, representa el problema como un digrafo, agregando tambi\'en un nodo sumidero o sink.
+
+\subsubsection{Par\'ametros}
+\begin{itemize}
+  \item $d_e$: distancia del arco dirigido $e$.
+  \item $I = \{1, 2, ..., 2n\}$: conjunto de equipos.
+  \item $H_i$: conjunto de nodos donde el equipo $i$ juega de local.
+  \item $R = \{1, 2, ..., 4n - 2\}$: conjunto de rondas.
+  \item $Q'_{ir}$: conjunto de nodos del equipo i jugando de local en las rondas $R \cap \left\{r, ..., r + q_1 - 1\right\}$.
+  \item $Q''_{ir}$: conjunto de nodos del equipo i jugando de local o visita en las rondas $R \cap \left\{r, ..., r + q_2 - 1\right\}$.
+  \item $U = \left\{1, 2, ..., n\right\}$: conjunto de \'arbitros.
+\end{itemize}
+
+\subsubsection{Variables}
+\begin{equation*}
+  X_{eu}=\begin{cases}
+    1, & \text{si el arco $e$ es seleccionado para el \'arbitro $u$,} \\
+    0, & \text{en caso contrario}.
+  \end{cases}
+\end{equation*}
+
+\subsubsection{Funci\'on Objetivo}
+\begin{equation*}
+  \text{Minimizar} \displaystyle\sum_{e \in E}\displaystyle\sum_{u \in U} d_eX_{eu}
+\end{equation*}
+
+Esta funci\'on minimiza la distancia total recorrida por cada \'arbitro.
+
+\subsubsection{Restricciones}
+
+\begin{equation} \label{2_1}
+  \displaystyle\sum_{e \in \delta(j)}\displaystyle\sum_{u \in U}X_{eu}=1, \quad\forall j \in V \backslash \{fuente, sink\}
+\end{equation}
+
+\begin{equation} \label{2_2}
+  \displaystyle\sum_{e \in \delta(j)}X_{eu} - \displaystyle\sum_{e \in \omega(j)} X_{eu} = \begin{cases}
+    -1, & \text{si $j$ es la fuente},                          \\
+    +1, & \text{si j es el sink},                              \\
+    0,  & \forall j \in V\backslash\left\{fuente, sink\right\}
+  \end{cases}, \forall u \in U
+\end{equation}
+
+\begin{equation} \label{2_3}
+  \displaystyle\sum_{e \in \delta(H_i)} X_{eu} \geq 1 \quad\forall i \in I, \forall u \in U.
+\end{equation}
+
+\begin{equation} \label{2_4}
+  \displaystyle\sum_{e \in \delta(Q'_{ir})} X_{eu} \leq 1 \quad\forall i \in I, r \in R, u \in U.
+\end{equation}
+
+\begin{equation} \label{2_5}
+  \displaystyle\sum_{e \in \delta(Q''_{ir})} X_{eu} \leq 1 \quad\forall i \in I, r \in R, u \in U.
+\end{equation}
+
+\begin{equation} \label{2_6}
+  X_{eu} \in \left\{0, 1\right\}\quad\forall e \in E, \forall u \in U.
+\end{equation}
+
+La restricci\'on (\ref{2_1}) impide que se asigne m\'as de un \'arbitro a un partido.
+
+La restricci\'on (\ref{2_2}) representa las restricciones de preservaci\'on de flujo, lo cual se asegura de que un \'arbitro contin\'ue su camino luego de oficiar un p\'artido.
+
+La restricci\'on (\ref{2_3}) se encarga de que cada \'arbitro visite cada sede por lo menos una vez.
+
+Las ecuaciones (\ref{2_4}) y (\ref{2_5}) representan las restricciones de tensi\'on o ajuste.
+
+Finalmente, la ecuaci\'on (\ref{2_6}) se asegura de que la variable de decisi\'on asuma valores binarios.
+
+\section{Representaci\'on}
+
+Se realiza la lectura del archivo de texto que contiene los datos del problema y se obtienen los siguientes datos:
+\begin{itemize}
+  \item $nUmpires\text{(N\'umero de jueces (int))}$
+  \item $nRounds\text{(N\'umero de rondas (int))} = 4*nUmps - 2$
+  \item $nTeams\text{(N\'umero de equipos (int))} = 2*nUmps$
+  \item $nGamesPerRound\text{(N\'umero de juegos por ronda (int))}$
+  \item $distMatrix\text{(Matriz de distancias (vector de dos dimensiones))}$
+  \item $oppMatrix\text{(Matriz de oponentes (vector de dos dimensiones))}$
+\end{itemize}
+Adem\'as, se genera una matriz auxiliar que contiene los datos de cada juego. Esta matriz tiene la siguiente estructura:
+
+gamesMat(Matriz de dimensiones R x N x 3, con elementos de la forma {Team1, Team2, Sede})
+
+Toda esta informaci\'on es guardada en una clase denominada TUP para su procesamiento.
+
+Por otro lado, se tiene la clase Solution, la cu\'al es generada por el algoritmo greedy como soluci\'on inicial, o es resultado del algoritmo principal de Simulated Annealing. La clase Solution contiene la siguiente informaci\'on:
+
+\begin{itemize}
+  \item $problem\text{(Guarda el problema correspondiente a la soluci\'on (TUP*))}$
+  \item $d1\text{(Guarda el valor de $d_1$ (int))}$
+  \item $d2\text{(Guarda el valor de $d_2$ (int))}$
+  \item $visitsMatrix\text{(Matriz de asignaciones de sedes (vector de dos dimensiones))}$
+  \item $distance\text{(Almacena la distancia total calculada para la asignaci\'on de sedes)}$
+\end{itemize}
+Similar a la clase TUP, se crea una matriz de 3 dimensiones que almacena las asignaciones de juegos a cada juez por cada ronda.
+
+La creaci\'on de estas dos matrices fue necesaria para el manejo m\'as f\'acil de los datos del problema.
+
+
+\section{Descripci\'on del Algoritmo}
+Bas\'andose fuertemente en el trabajo postulado por \emph{Trick et al} en el a\~no 2012\cite{trick_2012}, se genera una soluci\'on inicial haciendo uso de un algoritmo de tipo greedy, el cu\'al ser\'a mejorado mediante la ejecuci\'on del algoritmo Simulated Annealing.
+Por temas de tiempo, se ignor\'o la restricci\'on (\ref{1_3}) durante el desarrollo de este proyecto.
+
+\subsection{Heur\'istica Greedy Para La Creaci\'on de una Soluci\'on Inicial}
+
+Para la generaci\'on de una soluci\'on inicial, se utiliza una heur\'istica constructiva de tipo Greedy, la cu\'al, por cada ronda del torneo, asigna jueces a partidos bajo el criterio de minimizar el costo de cada asignaci\'on en cada ronda.
+
+Este enfoque se apoya de un grafo bipartito, en el que se representan, por un lado los equipos y por el otro los jueces, sobre el cu\'al se resuelve un problema de perfect matching en cada ronda.
+
+Se calcula el costo de cada arco de la siguiente manera
+
+\begin{equation}
+  Costo(u, (i, j)) = distancia(k, i) - incentivo(u, i) + penalizacion * infracciones(u, i, t)
+\end{equation}
+
+Donde
+\begin{itemize}
+  \item $k$ es la ubicaci\'on actual del juez $u$ en la ronda $t - 1$.
+  \item $distance(k, i)$ es la distancia entre la sede actual y la sede del equipo $i$, donde se juega el partido candidato a asignar.
+  \item $incentivo(k, i)$ es un valor positivo que se asigna en caso de que el juez $u$ nunca haya estado en la sede $i$.
+  \item $penalizacion$ es un valor muy grande que se agrega al costo cada vez que ocurre una infracci\'on a una de las restricciones.
+  \item $infracciones$ es la cantidad total de infracciones a las restricciones de arbitraje a equipos y visita de sedes en periodos definidos de tiempo.
+\end{itemize}
+
+\subsection{Simulated Annealing}
+
+Para la resoluci\'on del problema, se implementa el algoritmo de b\'usqueda incompleta llamado Simulated Annealing.
+Este algoritmo fue originalmente introducido por \emph{Kirkpatrick et al}\cite{Kirkpatrick1983} en su publicaci\'on el a\~no 1983, bas\'andose en el proceso de recocido de acero y la reacci\'on de sus \'atomos frente a los cambios de temperatura.
+
+En un principio, se tiene una temperatura inicial, una soluci\'on inicial, la cual puede ser generada de manera aleatoria o de alguna otra forma, como es el caso de este proyecto. A esta soluci\'on, llamada soluci\'on actual, se le realiza un movimiento aleatorio y se compara su costo con el de la soluci\'on actual. En caso de que la nueva soluci\'on sea mejor que la actual, esta siempre se acepta. En caso contrario, donde la soluci\'on es peor que la actual, se acepta o rechaza de acuerdo a un criterio de aceptaci\'on basado en la temperatura del sistema, la cual va disminuyendo de manera constante durante la ejecuci\'on del algoritmo.
+
+La probabilidad de aceptaci\'on es proporcional a la temperatura del sistema y la diferencia $\Delta$ entre soluci\'on actual y la nueva soluci\'on.
+
+Como funci\'on de evaluaci\'on para el algoritmo, se reus\'o la funci\'on presentada en el apartado del algoritmo greedy que genera la soluci\'on inicial, debido a que, por temas de tiempo, no fue posible implementar un movimiento que asegurara la factibilidad.
+
+
+\begin{algorithm}[H]
+  \caption{Simulated Annealing for TUP}\label{SATUP}
+  \begin{algorithmic}[1]
+    \Procedure{SimuAnnealing}{}
+    \State $\textit{temp} \gets \text{Temperatura inicial}$
+    \State $\textit{alpha} \gets \text{Coeficiente mediante el cu\'al va disminuyendo la temperatura}$
+    \State $\textit{currSol} \gets \text{Soluci\'on inicial obtenida con greedy}$
+    \State $\textit{bestSol} \gets \text{Soluci\'on inicial obtenida con greedy}$
+    \State $\textit{minTemp} \gets \text{Temperatura m\'inima}$
+    \State $\textit{maxIters} \gets \text{N\'umero m\'aximo de iteraciones por temperatura}$
+
+    \While{temp > minTemp}
+    \State $\textit{It} \gets 0$
+    \While{It < maxIters}
+    \State $\textit{newSol} \gets randomSwap(\textit{currSol})$
+    \State $\textit{delta} \gets \textit{newSol,Cost} - \textit{currSol.cost}$
+    \If {$ \textit{delta} < 0 $ \textbf{or} $rand[0.0; 1.0] < exp(-abs(\textit{delta}/temp))$}
+    \State $\textit{currSol} \gets \textit{newSol}$
+    \EndIf
+
+
+    \If {$\textit{newSol} < \textit{bestSol}$}
+    \State $\textit{bestSol} \gets \textit{newSol}$
+    \EndIf
+
+    \State $It++$
+    \EndWhile
+    \State $temp *= alpha$
+    \EndWhile
+    \State $Return \textit{bestSol}$
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+
+
+\section{Experimentos}
+
+En un principio, se utiliz\'o un m\'etodo random para la generaci\'on de la soluci\'on inicial, la cual no era muy eficiente, y generaba soluciones que infring\'an una gran cantidad de restricciones, y por consecuencia, provocaban un rendimiento muy pobre al ejecutar Simulated Annealing.
+
+\subsection{Parametrizaci\'on del sistema}
+El funcionamiento de Simulated Annealing puede ser ajustado f\'acilmente gracias a sus par\'ametros, que corresponden a:
+
+\begin{itemize}
+  \item $alpha$: Factor por el cu\'al va disminuyendo la temperatura despu\'es de transcurrido el m\'aximo n\'umero de iteraciones por valor de temperatura.
+  \item $iters$: N\'umero de iteraciones a realizar por cada valor de temperatura.
+  \item $T_0$: Valor inicial de temperatura.
+  \item $T_{min}$: Valor m\'inimo de temperatura.
+\end{itemize}
+
+Se realizaron experimentos de variaci\'on y fijaci\'on de estos par\'ametros, pero no se ha visto mayor impacto en los resultados. Mayor exploraci\'on es necesaria.
+
+
+\section{Resultados}
+
+En general, el algoritmo funciona correctamente y mejora la soluci\'on inicial dada, pero al no ser esta factible en la mayor\'ia de los casos, y al no tener un movimiento que asegure factibilidad, las soluciones entregadas por el algoritmo tienen un buen valor de distancia, pero rara vez son factibles.
+
+Sin embargo, en un momento del desarrollo, el algoritmo entregaba consistentemente soluciones \'optimas para un par de instancias, pero la configuraci\'on de par\'ametros que hicieron esto posible fue perdida al comenzar el proceso de experimentaci\'on y no ha podido ser encontrada de nuevo.
+
+\section{Conclusiones}
+
+
+Desde su primera publicaci\'on, ha quedado en evidencia la dificultad de este problema, lo que ha generado cierto inter\'es en la investigaci\'on de este, sin embargo, en la actualidad a\'un no se tiene un algoritmo que resuelva este problema al nivel de otros problemas similares, tales como el Travelling Salesman Problem.\cite{trick_2007}
+
+Algo que llama la atenci\'on sobre este problema y sus publicaciones asociadas, es el hecho de que el objetivo a resolver se ha mantenido, fijando el foco en la minimizaci\'on de las distancias a recorrer por los \'arbitros.
+
+Durante el transcurso de esta investigaci\'on, se han conocido las diversas t\'ecnicas que se han ido probando con el fin de resolver este complicado problema, t\'ecnicas tales como \emph{Neighborhood Search}, algoritmos gen\'eticos, t\'ecnicas \emph{relax-and-fix}, entre muchas otras. En la actualidad, el m\'etodo m\'as prometedor, y el m\'as reciente con buenos resultados es el presentado por Chandrasekharan \emph{et al}\cite{ChandrasekharanToffoloWauters+2019+41+57}, el cu\'al consiste en un algoritmo metaheur\'istico constructivo usando el modelo de programaci\'on entera propuesto por Toffolo \emph{et al} \cite{TOFFOLO2016737}.
+
+Durante el transcurso de la implementaci\'on de la soluci\'on, quedaron en evidencia las razones del poco avance que han tenido las investigaciones para la resoluci\'on \'optima de este problema en el \'ultimo tiempo, ya que este es un problema con una representaci\'on de los datos extremadamente compleja, como ya queda en evidencia en la secci\'on 5, donde se ejemplifican las estructuras de datos auxiliares que se han debido ocupar para facilitar un poco el manejo de los datos del problema.
+
+Si bien no ha sido posible la implementaci\'on total del solver que se ten\'ia en mente, y teniendo en cuenta el tiempo acotado destinado al desarrollo, los avances son satisfactorios, y se espera continuar avanzando en la investigaci\'on y resoluci\'on de este interesante problema.
+
+\bibliographystyle{plain}
+\bibliography{Referencias}
+
+\end{document}

@@ -1,0 +1,62 @@
+\begin{thebibliography}{10}
+
+\bibitem{ChandrasekharanToffoloWauters+2019+41+57}
+Reshma~Chirayil Chandrasekharan, T\'ulio~A.M. Toffolo, and Tony Wauters.
+\newblock Analysis of a constructive matheuristic for the traveling umpire problem.
+\newblock {\em Journal of Quantitative Analysis in Sports}, 15(1):41--57, 2019.
+
+\bibitem{DEOLIVEIRA2014592}
+Lucas {de Oliveira}, Cid~C. {de Souza}, and Tallys Yunes.
+\newblock Improved bounds for the traveling umpire problem: A stronger formulation and a relax-and-fix heuristic.
+\newblock {\em European Journal of Operational Research}, 236(2):592--600, 2014.
+
+\bibitem{ttp_2001}
+Kelly Easton, George Nemhauser, and Michael Trick.
+\newblock The traveling tournament problem description and benchmarks.
+\newblock In Toby Walsh, editor, {\em Principles and Practice of Constraint Programming --- CP 2001}, pages 580--584, Berlin, Heidelberg, 2001. Springer Berlin Heidelberg.
+
+\bibitem{Kirkpatrick1983}
+S.~Kirkpatrick, C.~D. Gelatt, and M.~P. Vecchi.
+\newblock Optimization by simulated annealing.
+\newblock {\em Science}, 220(4598):671--680, 1983.
+
+\bibitem{TUP_Website}
+T\'{u}lio A.~M. Toffolo, Tony Wauters, and Michael Trick.
+\newblock An automated benchmark website for the traveling umpire problem, June 2015.
+
+\bibitem{TOFFOLO2016737}
+T\'ulio~A.M. Toffolo, Tony Wauters, Sam {Van Malderen}, and Greet {Vanden Berghe}.
+\newblock Branch-and-bound with decomposition-based lower bounds for the traveling umpire problem.
+\newblock {\em European Journal of Operational Research}, 250(3):737--744, 2016.
+
+\bibitem{trick_2007}
+Michael~A. Trick and Hakan Yildiz.
+\newblock Bender's cuts guided large neighborhood search for the traveling umpire problem.
+\newblock In Pascal Van~Hentenryck and Laurence Wolsey, editors, {\em Integration of AI and OR Techniques in Constraint Programming for Combinatorial Optimization Problems}, pages 332--345, Berlin, Heidelberg, 2007. Springer Berlin Heidelberg.
+
+\bibitem{trick_yildiz_2011}
+Michael~A. Trick and Hakan Yildiz.
+\newblock Benders' cuts guided large neighborhood search for the traveling umpire problem.
+\newblock {\em Naval Research Logistics (NRL)}, 58(8):771--781, 2011.
+
+\bibitem{TRICK2012286}
+Michael~A. Trick and Hakan Yildiz.
+\newblock Locally optimized crossover for the traveling umpire problem.
+\newblock {\em European Journal of Operational Research}, 216(2):286--292, 2012.
+
+\bibitem{trick_2012}
+Michael~A. Trick, Hakan Yildiz, and Tallys Yunes.
+\newblock {Scheduling Major League Baseball Umpires and the Traveling Umpire Problem}.
+\newblock {\em INFORMS Journal on Applied Analytics}, 42(3):232--244, 2012.
+
+\bibitem{WAUTERS2014886}
+Tony Wauters, Sam {Van Malderen}, and Greet {Vanden Berghe}.
+\newblock Decomposition and local search based methods for the traveling umpire problem.
+\newblock {\em European Journal of Operational Research}, 238(3):886--898, 2014.
+
+\bibitem{XUE2015932}
+Li~Xue, Zhixing Luo, and Andrew Lim.
+\newblock Two exact algorithms for the traveling umpire problem.
+\newblock {\em European Journal of Operational Research}, 243(3):932--943, 2015.
+
+\end{thebibliography}
