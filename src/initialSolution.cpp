@@ -56,7 +56,7 @@ Solution randomSol(TUP* problem, int d1, int d2) {
 
 Solution greedy(TUP* problem, int d1, int d2) {
   int nRounds = problem->getnRounds();
-  cout << "Rondas: " << nRounds << endl;
+  // cout << "Rondas: " << nRounds << endl;
   int nUmps = problem->getnUmpires();
   int nGames = nUmps;
   vector<vector<vector<int>>> probGameMat = problem->getGamesMatrix();

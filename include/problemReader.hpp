@@ -6,6 +6,12 @@
 #include <sstream>
 #include "./TUP.hpp"
 
+/**
+ * @brief Process txt file and extract problem data, generates TUP object
+ *
+ * @param fileName
+ * @return TUP
+ */
 TUP readProblemFile(string fileName);
 
 

@@ -22,14 +22,3 @@ void solutionWriter(Solution sol, string instName) {
 
   solFile.close();
 }
-
-
-// void Solution::showVisitsMatrix() {
-//   for (const auto& v : this->visitsMatrix) {
-//     for (const auto n : v) {
-//       cout << n << " ";
-//     }
-
-//     cout << '\n';
-//   }
-// }
